@@ -15,17 +15,55 @@ function createCard(cardData, deleteCallback){
     cardImage.alt = cardData.name;
     cardTitle.textContent = cardData.name;
   
-    deleteButton.addEventListener('click', function() {
-    cardElement.remove();
-  })
+    deleteButton.addEventListener('click', deleteCallback);
+
   return cardElement;
   }
   
   
   const placesList = document.querySelector('.places__list');
   
-  initialCards.forEach(card => {
-    placesList.append(createCard(card));
+ //DOM Element
+  const newCardPopup = document.querySelector('.popup_type_new-card');
+  const newCardForm = newCardPopup.querySelector('.popup__form');
+  const placeNameInput = newCardForm.querySelector('.popup__input_type_card-name');
+  const linkInput = newCardForm.querySelector('.popup__input_type_url');
+ 
+  //delete function
+  function deleteCard(evt) {
+  evt.target.closest('.card').remove();
+}
+
+ initialCards.forEach(card => {
+    placesList.append(createCard(card, deleteCard));
   });
-  
-  
+
+
+  function openPopup(popup) {
+  popup.style.display = 'flex';
+  popup.style.visibility = 'visible';
+  popup.style.opacity = '1';
+}
+
+// Функция закрытия попапа
+function closePopup(popup) {
+  popup.style.display = 'flex';
+  popup.style.visibility = 'hidden';
+  popup.style.opacity = '0';
+}
+
+// Находим кнопку добавления
+const profileAddButton = document.querySelector('.profile__add-button');
+
+// Вешаем обработчик на кнопку
+profileAddButton.addEventListener('click', () => {
+  openPopup(newCardPopup); // newCardPopup у тебя уже определён
+});
+
+
+document.querySelectorAll('.popup__close').forEach(button => {
+  button.addEventListener('click', () => {
+    const popup = button.closest('.popup');
+    closePopup(popup);
+  });
+});
