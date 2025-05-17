@@ -39,25 +39,26 @@ function createCard(cardData, deleteCallback){
   });
 
 
+
   function openPopup(popup) {
   popup.style.display = 'flex';
   popup.style.visibility = 'visible';
   popup.style.opacity = '1';
 }
 
-// Функция закрытия попапа
 function closePopup(popup) {
   popup.style.display = 'flex';
   popup.style.visibility = 'hidden';
   popup.style.opacity = '0';
 }
 
-// Находим кнопку добавления
+
+//adding new card to the page
+
 const profileAddButton = document.querySelector('.profile__add-button');
 
-// Вешаем обработчик на кнопку
 profileAddButton.addEventListener('click', () => {
-  openPopup(newCardPopup); // newCardPopup у тебя уже определён
+  openPopup(newCardPopup);
 });
 
 
@@ -67,3 +68,19 @@ document.querySelectorAll('.popup__close').forEach(button => {
     closePopup(popup);
   });
 });
+
+// adding function
+function handleAddCardFormSubmit(evt) {
+  evt.preventDefault();
+  
+  const newCardData = {
+    name: placeNameInput.value,
+    link: linkInput.value
+  };
+  
+  placesList.prepend(createCard(newCardData, deleteCard));
+  newCardForm.reset();
+  closePopup(newCardPopup);
+}
+
+newCardForm.addEventListener('submit', handleAddCardFormSubmit);

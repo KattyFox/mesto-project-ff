@@ -1,27 +1,27 @@
 const initialCards = [
     {
-      name: "Boys",
-      link: "https://images.unsplash.com/photo-1744424846144-d57267a19ee8?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      name: "Rise of Legenda",
+      link: "https://n-e-n.ru/images/2023-09-25/65115995cb9fc_0x0.jpg",
     },
     {
-      name: "Girls",
-      link: "https://images.unsplash.com/photo-1744374345182-ad26dd573b53?q=80&w=2564&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      name: "Best Ever",
+      link: "https://www.pravilamag.ru/upload/img_cache/01c/01c0e2e7f4d62130314041ffa5d7ae8c_cropped_666x970.webp",
     },
     {
-      name: "Every age",
-      link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+      name: "At the bottom",
+      link: "https://disgustingmen.com/wp-content/uploads/2016/12/cousteau-conshelf-13.jpg",
     },
     {
-      name: "Like",
-      link: "https://cs14.pikabu.ru/post_img/2022/05/02/7/1651489345178564709.webp",
+      name: "Yellow submarine",
+      link: "https://prostoshapka.ru/wp-content/uploads/2018/01/0_10e134_12731cb_orig.jpg",
     },
     {
-      name: "To See",
-      link: "https://images.unsplash.com/photo-1732165783074-b0f7c123982b?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      name: "Discover",
+      link: "https://teleprogramma.org/sites/default/files/styles/post_content_1200xany/public/text-images/2023-09/2.8_1695962715_1695963101.webp?itok=wCENLYe9",
     },
     {
-      name: "Smth strange",
-      link: "https://plus.unsplash.com/premium_photo-1745164066344-0ad72af5e35a?q=80&w=2487&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      name: "Remember forever",
+      link: "https://img.brodude.ru/Obu7Ht12aXgCyMDZnf3U4m9Lkk86YjZAREyoxXRvnpE/rs:fill:455:403:0/g:ce/c:0:0/aHR0cHM6Ly9icm9kdWRlLnJ1L3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDEzLzA4L2Jyb2R1ZGUucnUsIDguMDguMjAxMywgZlBhRlIwR1BiYkpOSk5NN1lVR25teGtUdnR6MWk0OEUuanBn",
     }
 ];
 
