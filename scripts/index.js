@@ -64,7 +64,7 @@ document.querySelectorAll(".popup__close").forEach((button) => {
 });
 
 // adding function
-function handleAddCardFormSubmit(evt) {
+function AddCardSubmit(evt) {
   evt.preventDefault();
 
   const newCardData = {
@@ -77,4 +77,4 @@ function handleAddCardFormSubmit(evt) {
   closePopup(newCardPopup);
 }
 
-newCardForm.addEventListener("submit", handleAddCardFormSubmit);
+newCardForm.addEventListener("submit", AddCardSubmit);
