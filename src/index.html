@@ -41,7 +41,7 @@ cardTitle.textContent = cardData.name;
       <form class="popup__form" name="edit-profile">
         <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" required>
         <input type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие" required>
-        <button type="submit" class="button popup__button">Сохранить</button>
+        <button type="submit" class="button popup__button popup__button_disabled">Сохранить</button>
       </form>
     </div>
   </div>
@@ -78,9 +78,9 @@ cardTitle.textContent = cardData.name;
 </template>
 
 <script src="./scripts/cards.js"></script>
-<script src="./scripts/card.js"></script>
-<script src="./scripts/modal.js"></script>
-<script src="./scripts/index.js"></script>
+<script src="./scripts/card.js" type="module"></script>
+<script src="./scripts/modal.js" type="modul"></script>
+<script src="./scripts/index.js" type="module"></script>
 
 
 </body>

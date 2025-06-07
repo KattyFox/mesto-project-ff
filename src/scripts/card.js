@@ -38,3 +38,4 @@ function addCard(nameValue, linkValue) {
   }));
 }
 
+export {createCard};

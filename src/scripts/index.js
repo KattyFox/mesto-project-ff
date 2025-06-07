@@ -1,3 +1,7 @@
+import {createCard} from "./card.js"
+import { openEditPopup,closeImagePopup, closePopup } from "./modal.js";
+
+(function () {
 // поиск DOM-элементов на странице 
 const placesList = document.querySelector(".places__list");
 
@@ -46,7 +50,6 @@ editPopup.addEventListener("click", (evt) => {
 
 
 // AND CLOSE POPUP
-editButton.addEventListener('click', openEditPopup);
 editForm.addEventListener('submit', function(evt) {
   evt.preventDefault();
 
@@ -57,8 +60,13 @@ editForm.addEventListener('submit', function(evt) {
   closePopup(editPopup);
 });
 
+
+const editFunction = function() {
+    return  openEditPopup(nameInput,profileTitle,jobInput,profileDescription,editPopup,editForm, submitButton);
+}
 // Button EDDTING
-editButton.addEventListener('click', openEditPopup);
+editButton.addEventListener('click', editFunction);
+
 
 newCardPopup
   .querySelector(".popup__close")
@@ -101,7 +109,7 @@ initialCards.forEach(function (card) {
 });
 
 // Начальное состояние кнопки
-setSubmitButtonState(false);    
+//setSubmitButtonState(false);    
 
 // Open Image by Click
 // Получаем элементы попапа изображения
@@ -122,4 +130,4 @@ function handleImageClick(link, name) {
   openImagePopup(link, name, name);
 }
 
- 
+ })(); 
