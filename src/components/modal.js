@@ -19,43 +19,5 @@ function setSubmitButtonState(isFormValid, submitButton) {
   }
 }
 
-// FUNC OPEN ADITING
-function openEditPopup(
-  nameInput,
-  profileTitle,
-  jobInput,
-  profileDescription,
-  editPopup,
-  editForm,
-  submitButton
-) {
-  // CURRENT data of progile
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileDescription.textContent;
 
-  // VALIDATION FORM
-  setSubmitButtonState(editForm.querySelector(".popup__button"), submitButton);
-
-  openPopup(editPopup);
-}
-
-// FUNC OPEN POPUP - IMAGE
-function openImagePopup(imageSrc, imageAlt, captionText) {
-  const imagePopup = document.querySelector(".popup_type_image");
-  const popupImage = imagePopup.querySelector(".popup__image");
-  const popupCaption = imagePopup.querySelector(".popup__caption");
-
-  popupImage.src = imageSrc;
-  popupImage.alt = imageAlt;
-  popupCaption.textContent = captionText;
-
-  openPopup(imagePopup);
-}
-
-// FUNC CLOSE POPUP - IMAGE
-function closeImagePopup() {
-  const imagePopup = document.querySelector(".popup_type_image");
-  closePopup(imagePopup);
-}
-
-export { setSubmitButtonState, openEditPopup, closeImagePopup, closePopup, openImagePopup, openPopup };
+export { setSubmitButtonState,  closePopup, openPopup };

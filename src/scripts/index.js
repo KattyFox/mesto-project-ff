@@ -1,35 +1,24 @@
-import {createCard, addCard} from "./card.js"
-import { setSubmitButtonState, openEditPopup,closeImagePopup, closePopup, openPopup } from "../components/modal.js";
+import {createCard, addCard} from "../components/card.js"
+import { setSubmitButtonState,  closePopup, openPopup } from "../components/modal.js";
+import { initialCards } from "./cards.js";
 
 (function () {
 // поиск DOM-элементов на странице 
 const placesList = document.querySelector(".places__list");
-
 const editForm = document.forms['edit-profile'];
 const editPopup = document.querySelector('.popup_type_edit');
-
 const nameInput = editForm.elements.name;
 const jobInput = editForm.elements.description;
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
-
 const form = document.forms['new-place']; // getting form by name
 const placeName = form.elements['place-name']; // getting form elements
 const link = form.elements.link;
 const submitButton = form.querySelector('.popup__button');
-
 const addButton = document.querySelector('.profile__add-button');
 const editButton = document.querySelector('.profile__edit-button');
-
 const newCardPopup = document.querySelector('.popup_type_new-card');
 
-
-
-
-
-
-
-// Обработчики событий
 
 // CLOSE by OVERLAY
 newCardPopup.addEventListener("click", function (evt) {
@@ -61,11 +50,17 @@ editForm.addEventListener('submit', function(evt) {
 });
 
 
-const editFunction = function() {
-    return  openEditPopup(nameInput,profileTitle,jobInput,profileDescription,editPopup,editForm, submitButton);
-}
 // Button EDDTING
-editButton.addEventListener('click', editFunction);
+editButton.addEventListener('click', ()=>{
+
+  // CURRENT data of progile
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileDescription.textContent;
+
+  // VALIDATION FORMf
+  setSubmitButtonState(editForm.querySelector(".popup__button"), submitButton);
+  openPopup(editPopup);
+});
 
 
 newCardPopup
@@ -116,18 +111,14 @@ initialCards.forEach(function (card) {
 const imagePopup = document.querySelector('.popup_type_image');
 
 // Обработчик закрытия по крестику
-imagePopup.querySelector('.popup__close').addEventListener('click', closeImagePopup);
+imagePopup.querySelector('.popup__close').addEventListener('click', ()=>{
+  closePopup(imagePopup);
+});
 
 // Обработчик закрытия по оверлею
 imagePopup.addEventListener('click', (evt) => {
   if (evt.target === imagePopup) {
-    closeImagePopup();
+   closePopup(imagePopup);
   }
 });
-
-// Функция обработки клика по изображению
-function handleImageClick(link, name) {
-  openImagePopup(link, name, name);
-}
-
  })(); 

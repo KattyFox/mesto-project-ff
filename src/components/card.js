@@ -1,5 +1,5 @@
 
-import {openImagePopup} from "../components/modal.js"
+import {openPopup} from "../components/modal.js"
 
 // FUNCTION CREATE CARD
 function createCard(cardData) {
@@ -23,7 +23,16 @@ function createCard(cardData) {
 
  // OPEN IMAGE BY CLICK
   cardImage.addEventListener('click', () => {
-    openImagePopup(cardData.link, cardData.name, cardData.name);
+    //openImagePopup(cardData.link, cardData.name, cardData.name);
+    const imagePopup = document.querySelector(".popup_type_image");
+    const popupImage = imagePopup.querySelector(".popup__image");
+    const popupCaption = imagePopup.querySelector(".popup__caption");
+
+    popupImage.src = cardData.link;
+    popupImage.alt = cardData.name;
+    popupCaption.textContent = cardData.name;
+
+    openPopup(imagePopup);
   });
   
 
