@@ -3,6 +3,7 @@
 function createCard(cardData) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.cloneNode(true);
+  const cardImage = cardElement.querySelector('.card__image');
 
   cardElement.querySelector('.card__image').src = cardData.link;
   cardElement.querySelector('.card__image').alt = cardData.name;
@@ -18,8 +19,20 @@ function createCard(cardData) {
     evt.target.classList.toggle('card__like-button_is-active');
   });
 
+  // NEW: Обработчик клика по изображению карточки
+  cardImage.addEventListener('click', () => {
+    openImagePopup(cardData.link, cardData.name, cardData.name);
+  });
+
+  // NEW: Обработчик клика по изображению карточки
+  cardImage.addEventListener('click', () => {
+    handleImageClick(cardData.link, cardData.name, cardData.name);
+  });
+
   return cardElement;
 }
+
+
 
 // FUNCTION ADDING CARD
 function addCard(nameValue, linkValue) {
@@ -28,3 +41,4 @@ function addCard(nameValue, linkValue) {
     link: linkValue
   }));
 }
+
