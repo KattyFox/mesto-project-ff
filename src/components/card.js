@@ -23,7 +23,7 @@ function createCard(cardData) {
 
  // OPEN IMAGE BY CLICK
   cardImage.addEventListener('click', () => {
-    //openImagePopup(cardData.link, cardData.name, cardData.name);
+
     const imagePopup = document.querySelector(".popup_type_image");
     const popupImage = imagePopup.querySelector(".popup__image");
     const popupCaption = imagePopup.querySelector(".popup__caption");
@@ -38,7 +38,6 @@ function createCard(cardData) {
 
   return cardElement;
 }
-
 
 
 // FUNCTION ADDING CARD

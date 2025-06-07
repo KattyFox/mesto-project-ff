@@ -86,16 +86,11 @@ form.addEventListener("input", function () {
 });
 
 
-
 // функция-обработчик события открытия модального окна для редактирования профиля
-// BUTTON OPEN POPUP ANF EDDITING MODAL - EDDIT PROFILE
 addButton.addEventListener("click", function () {
   openPopup(newCardPopup);
 });
 
-
-
-// функция открытия модального окна изображения карточки.
 
 
 // Инициализация начальных 6 карточек
@@ -103,10 +98,7 @@ initialCards.forEach(function (card) {
   placesList.append(createCard(card));
 });
 
-// Начальное состояние кнопки
-//setSubmitButtonState(false);    
 
-// Open Image by Click
 // Получаем элементы попапа изображения
 const imagePopup = document.querySelector('.popup_type_image');
 
