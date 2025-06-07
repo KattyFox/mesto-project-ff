@@ -19,15 +19,12 @@ function createCard(cardData) {
     evt.target.classList.toggle('card__like-button_is-active');
   });
 
-  // NEW: Обработчик клика по изображению карточки
+  // OPEN IMAGE BY CLICK
   cardImage.addEventListener('click', () => {
     openImagePopup(cardData.link, cardData.name, cardData.name);
   });
 
-  // NEW: Обработчик клика по изображению карточки
-  cardImage.addEventListener('click', () => {
-    handleImageClick(cardData.link, cardData.name, cardData.name);
-  });
+  
 
   return cardElement;
 }

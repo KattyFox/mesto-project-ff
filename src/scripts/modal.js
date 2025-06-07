@@ -1,9 +1,3 @@
-
-
-
-
-
-
 // OPEN POPUP
 function openPopup(popup) {
   popup.classList.add('popup_is-opened');
@@ -38,7 +32,7 @@ function openEditPopup() {
 }
 
 
-// NEW: Функция открытия попапа с изображением
+// FUNC OPEN POPUP - IMAGE
 function openImagePopup(imageSrc, imageAlt, captionText) {
   const imagePopup = document.querySelector('.popup_type_image');
   const popupImage = imagePopup.querySelector('.popup__image');
@@ -51,7 +45,7 @@ function openImagePopup(imageSrc, imageAlt, captionText) {
   openPopup(imagePopup);
 }
 
-// NEW: Функция закрытия попапа изображения
+// FUNC CLOSE POPUP - IMAGE
 function closeImagePopup() {
   const imagePopup = document.querySelector('.popup_type_image');
   closePopup(imagePopup);

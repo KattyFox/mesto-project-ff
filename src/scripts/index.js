@@ -9,8 +9,8 @@ const jobInput = editForm.elements.description;
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 
-const form = document.forms['new-place']; // Получаем форму по имени
-const placeName = form.elements['place-name']; // Получаем элементы формы
+const form = document.forms['new-place']; // getting form by name
+const placeName = form.elements['place-name']; // getting form elements
 const link = form.elements.link;
 const submitButton = form.querySelector('.popup__button');
 
@@ -22,7 +22,7 @@ const newCardPopup = document.querySelector('.popup_type_new-card');
 
 
 
-// навешивание на них обработчиков событий
+// Обработчики событий
 
 // CLOSE by OVERLAY
 newCardPopup.addEventListener("click", function (evt) {
@@ -54,7 +54,7 @@ editForm.addEventListener('submit', function(evt) {
   closePopup(editPopup);
 });
 
-// Click Button EDDTING
+// Button EDDTING
 editButton.addEventListener('click', openEditPopup);
 
 newCardPopup
@@ -64,7 +64,7 @@ newCardPopup
   });
 
 
-// обработчики отправки форм
+// Sending FORMS
 form.addEventListener("submit", function (evt) {
   evt.preventDefault();
   addCard(placeName.value, link.value);
@@ -82,7 +82,7 @@ form.addEventListener("input", function () {
 
 
 // функция-обработчик события открытия модального окна для редактирования профиля
-// BUTTON OPEN POPUP
+// BUTTON OPEN POPUP ANF EDDITING MODAL - EDDIT PROFILE
 addButton.addEventListener("click", function () {
   openPopup(newCardPopup);
 });
@@ -92,8 +92,7 @@ addButton.addEventListener("click", function () {
 // функция открытия модального окна изображения карточки.
 
 
-// отображение шести карточек при открытии страницы
-// Инициализация начальных карточек
+// Инициализация начальных 6 карточек
 initialCards.forEach(function (card) {
   placesList.append(createCard(card));
 });
@@ -101,20 +100,21 @@ initialCards.forEach(function (card) {
 // Начальное состояние кнопки
 setSubmitButtonState(false);    
 
-// NEW: Получаем элементы попапа изображения
+// Open Image by Click
+// Получаем элементы попапа изображения
 const imagePopup = document.querySelector('.popup_type_image');
 
-// NEW: Обработчик закрытия по крестику
+// Обработчик закрытия по крестику
 imagePopup.querySelector('.popup__close').addEventListener('click', closeImagePopup);
 
-// NEW: Обработчик закрытия по оверлею
+// Обработчик закрытия по оверлею
 imagePopup.addEventListener('click', (evt) => {
   if (evt.target === imagePopup) {
     closeImagePopup();
   }
 });
 
-// NEW: Функция обработки клика по изображению
+// Функция обработки клика по изображению
 function handleImageClick(link, name) {
   openImagePopup(link, name, name);
 }
