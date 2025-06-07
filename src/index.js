@@ -1,6 +1,4 @@
 
-import './pages/index.css';
-import { initialCards } from './scripts/cards';
 
 function createCard(cardData, deleteCallback) {
   //clone card template

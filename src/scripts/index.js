@@ -1,81 +1,142 @@
-function createCard(cardData, deleteCallback) {
-  //clone card template
-  const cardTemplate = document.querySelector("#card-template").content;
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+//  DOM elements
+const placesList = document.querySelector('.places__list');
+const addButton = document.querySelector('.profile__add-button');
+const newCardPopup = document.querySelector('.popup_type_new-card');
+const form = document.forms['new-place']; // Получаем форму по имени
+const placeName = form.elements['place-name']; // Получаем элементы формы
+const link = form.elements.link;
+const submitButton = form.querySelector('.popup__button');
 
-  //detected card Elements
-  const cardImage = cardElement.querySelector(".card__image");
-  const cardTitle = cardElement.querySelector(".card__title");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
+// DOM elements ADDING PROFILE
+const editButton = document.querySelector('.profile__edit-button');
+const editPopup = document.querySelector('.popup_type_edit');
+const editForm = document.forms['edit-profile'];
+const nameInput = editForm.elements.name;
+const jobInput = editForm.elements.description;
+const profileTitle = document.querySelector('.profile__title');
+const profileDescription = document.querySelector('.profile__description');
 
-  // cards Data
-  cardImage.src = cardData.link;
-  cardImage.alt = cardData.name;
-  cardTitle.textContent = cardData.name;
+// FUNCTION CREATE CARD
+function createCard(cardData) {
+  const cardTemplate = document.querySelector('#card-template').content;
+  const cardElement = cardTemplate.cloneNode(true);
 
-  deleteButton.addEventListener("click", deleteCallback);
+  cardElement.querySelector('.card__image').src = cardData.link;
+  cardElement.querySelector('.card__image').alt = cardData.name;
+  cardElement.querySelector('.card__title').textContent = cardData.name;
+
+  // DELETE CARD
+  cardElement.querySelector('.card__delete-button').addEventListener('click', (evt) => {
+    evt.target.closest('.card').remove();
+  });
+
+  // LIKE CARD
+  cardElement.querySelector('.card__like-button').addEventListener('click', (evt) => {
+    evt.target.classList.toggle('card__like-button_is-active');
+  });
 
   return cardElement;
 }
 
-const placesList = document.querySelector(".places__list");
-
-const newCardPopup = document.querySelector(".popup_type_new-card");
-const newCardForm = newCardPopup.querySelector(".popup__form");
-const placeNameInput = newCardForm.querySelector(
-  ".popup__input_type_card-name"
-);
-const linkInput = newCardForm.querySelector(".popup__input_type_url");
-
-//delete function
-function deleteCard(evt) {
-  evt.target.closest(".card").remove();
+// FUNCTION ADDING CARD
+function addCard(nameValue, linkValue) {
+  placesList.prepend(createCard({
+    name: nameValue,
+    link: linkValue
+  }));
 }
 
-initialCards.forEach((card) => {
-  placesList.append(createCard(card, deleteCard));
+// OPEN POPUP
+function openPopup(popup) {
+  popup.classList.add('popup_is-opened');
+}
+
+// CLOSE POPUP
+function closePopup(popup) {
+  popup.classList.remove('popup_is-opened');
+}
+
+// SEND FORM by SUBMIT
+form.addEventListener('submit', function(evt) {
+  evt.preventDefault();
+  addCard(placeName.value, link.value);
+  form.reset();
+  closePopup(newCardPopup);
+  setSubmitButtonState(false);
 });
 
-function openPopup(popup) {
-  popup.style.display = "flex";
-  popup.style.visibility = "visible";
-  popup.style.opacity = "1";
+// VALID BUTTON
+function setSubmitButtonState(isFormValid) {
+  if (isFormValid) {
+    submitButton.removeAttribute('disabled');
+    submitButton.classList.remove('popup__button_disabled');
+  } else {
+    submitButton.setAttribute('disabled', true);
+    submitButton.classList.add('popup__button_disabled');
+  }
 }
 
-function closePopup(popup) {
-  popup.style.display = "flex";
-  popup.style.visibility = "hidden";
-  popup.style.opacity = "0";
-}
+// VALIDNESS FORM
+form.addEventListener('input', function() {
+  const isValid = placeName.value.length > 0 && link.value.length > 0;
+  setSubmitButtonState(isValid);
+});
 
-//adding new card to the page
-
-const profileAddButton = document.querySelector(".profile__add-button");
-
-profileAddButton.addEventListener("click", () => {
+// BUTTON OPEN POPUP
+addButton.addEventListener('click', function() {
   openPopup(newCardPopup);
 });
 
-document.querySelectorAll(".popup__close").forEach((button) => {
-  button.addEventListener("click", () => {
-    const popup = button.closest(".popup");
-    closePopup(popup);
-  });
+// AND CLOSE POPUP
+newCardPopup.querySelector('.popup__close').addEventListener('click', function() {
+  closePopup(newCardPopup);
 });
 
-// adding function
-function AddCardSubmit(evt) {
-  evt.preventDefault();
+// CLOSE by OVERLAY
+newCardPopup.addEventListener('click', function(evt) {
+  if (evt.target === newCardPopup) {
+    closePopup(newCardPopup);
+  }
+});
 
-  const newCardData = {
-    name: placeNameInput.value,
-    link: linkInput.value,
-  };
+// Инициализация начальных карточек
+initialCards.forEach(function(card) {
+  placesList.append(createCard(card));
+});
 
-  placesList.prepend(createCard(newCardData, deleteCard));
-  newCardForm.reset();
-  closePopup(newCardPopup);
+// Начальное состояние кнопки
+setSubmitButtonState(false);
+
+// FUNC OPEN ADITING
+function openEditPopup() {
+  // CURRENT data of progile
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileDescription.textContent;
+  
+  // VALIDATION FORM
+  setSubmitButtonState(editForm.querySelector('.popup__button'), true);
+  
+  openPopup(editPopup);
 }
 
-newCardForm.addEventListener("submit", AddCardSubmit);
+// EDDITING FORM
+editForm.addEventListener('submit', function(evt) {
+  evt.preventDefault();
+  
+  // NEW Data
+  profileTitle.textContent = nameInput.value;
+  profileDescription.textContent = jobInput.value;
+  
+  closePopup(editPopup);
+});
 
+// Click Button EDDTING
+editButton.addEventListener('click', openEditPopup);
+
+// CLOSE by "X" and Overlay
+editPopup.querySelector('.popup__close').addEventListener('click', () => closePopup(editPopup));
+editPopup.addEventListener('click', (evt) => {
+  if (evt.target === editPopup) {
+    closePopup(editPopup);
+  }
+});
