@@ -23,7 +23,7 @@ const newCardPopup = document.querySelector('.popup_type_new-card');
 
 
 // навешивание на них обработчиков событий
-// SEND FORM by SUBMIT
+
 // CLOSE by OVERLAY
 newCardPopup.addEventListener("click", function (evt) {
   if (evt.target === newCardPopup) {
@@ -119,15 +119,3 @@ function handleImageClick(link, name) {
   openImagePopup(link, name, name);
 }
 
-// Модифицируем инициализацию карточек
-initialCards.forEach(function(card) {
-  placesList.append(createCard(card, handleImageClick));
-});
-
-// Модифицируем функцию addCard
-function addCard(nameValue, linkValue) {
-  placesList.prepend(createCard({
-    name: nameValue,
-    link: linkValue
-  }, handleImageClick));
-}
