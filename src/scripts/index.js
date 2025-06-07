@@ -1,5 +1,5 @@
 import {createCard} from "./card.js"
-import { openEditPopup,closeImagePopup, closePopup } from "./modal.js";
+import { openEditPopup,closeImagePopup, closePopup } from "../components/modal.js";
 
 (function () {
 // поиск DOM-элементов на странице 
