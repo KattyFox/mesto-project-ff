@@ -58,4 +58,4 @@ function closeImagePopup() {
   closePopup(imagePopup);
 }
 
-export { openEditPopup, closeImagePopup, closePopup, openImagePopup };
+export { setSubmitButtonState, openEditPopup, closeImagePopup, closePopup, openImagePopup, openPopup };

@@ -33,11 +33,11 @@ function createCard(cardData) {
 
 
 // FUNCTION ADDING CARD
-function addCard(nameValue, linkValue) {
+function addCard(nameValue, linkValue, placesList) {
   placesList.prepend(createCard({
     name: nameValue,
     link: linkValue
   }));
 }
 
-export {createCard};
+export {createCard, addCard};

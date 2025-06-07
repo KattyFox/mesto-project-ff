@@ -1,5 +1,5 @@
-import {createCard} from "./card.js"
-import { openEditPopup,closeImagePopup, closePopup } from "../components/modal.js";
+import {createCard, addCard} from "./card.js"
+import { setSubmitButtonState, openEditPopup,closeImagePopup, closePopup, openPopup } from "../components/modal.js";
 
 (function () {
 // поиск DOM-элементов на странице 
@@ -78,16 +78,16 @@ newCardPopup
 // Sending FORMS
 form.addEventListener("submit", function (evt) {
   evt.preventDefault();
-  addCard(placeName.value, link.value);
+  addCard(placeName.value, link.value, placesList);
   form.reset();
   closePopup(newCardPopup);
-  setSubmitButtonState(false);
+  setSubmitButtonState(false, submitButton);
 });
 
 // VALIDNESS FORM
 form.addEventListener("input", function () {
   const isValid = placeName.value.length > 0 && link.value.length > 0;
-  setSubmitButtonState(isValid);
+  setSubmitButtonState(isValid, submitButton);
 });
 
 
