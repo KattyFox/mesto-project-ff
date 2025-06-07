@@ -1,4 +1,6 @@
 
+import {openImagePopup} from "../components/modal.js"
+
 // FUNCTION CREATE CARD
 function createCard(cardData) {
   const cardTemplate = document.querySelector('#card-template').content;
