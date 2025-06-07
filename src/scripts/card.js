@@ -19,11 +19,10 @@ function createCard(cardData) {
     evt.target.classList.toggle('card__like-button_is-active');
   });
 
-  // OPEN IMAGE BY CLICK
+ // OPEN IMAGE BY CLICK
   cardImage.addEventListener('click', () => {
     openImagePopup(cardData.link, cardData.name, cardData.name);
   });
-
   
 
   return cardElement;

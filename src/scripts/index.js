@@ -22,6 +22,9 @@ const newCardPopup = document.querySelector('.popup_type_new-card');
 
 
 
+
+
+
 // Обработчики событий
 
 // CLOSE by OVERLAY
@@ -119,3 +122,4 @@ function handleImageClick(link, name) {
   openImagePopup(link, name, name);
 }
 
+ 
