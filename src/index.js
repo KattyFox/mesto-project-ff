@@ -96,11 +96,46 @@ addButton.addEventListener("click", function () {
 });
 
 
+for( let i = 0 ; i< initialCards.length; i++ ){
+  const cardData = initialCards[i];
+  const createdElement = createCard(cardData);
+
+  const cardImage = createdElement.querySelector('.card__image');
+
+  cardImage.addEventListener('click', () => {
+    const imagePopup = document.querySelector(".popup_type_image");
+    const popupImage = imagePopup.querySelector(".popup__image");
+    const popupCaption = imagePopup.querySelector(".popup__caption");
+
+    popupImage.src = cardData.link;
+    popupImage.alt = cardData.name;
+    popupCaption.textContent = cardData.name;
+
+    openPopup(imagePopup);
+  });
+
+  placesList.append(createdElement);
+}
 
 // Инициализация начальных 6 карточек
-initialCards.forEach(function (card) {
-  placesList.append(createCard(card));
-});
+// initialCards.forEach(function (cardData) {
+//   const createdElement = createCard(cardData);
+//   placesList.append(createdElement);
+
+//    // OPEN IMAGE BY CLICK
+//   cardImage.addEventListener('click', () => {
+
+//     const imagePopup = document.querySelector(".popup_type_image");
+//     const popupImage = imagePopup.querySelector(".popup__image");
+//     const popupCaption = imagePopup.querySelector(".popup__caption");
+
+//     popupImage.src = cardData.link;
+//     popupImage.alt = cardData.name;
+//     popupCaption.textContent = cardData.name;
+
+//     openPopup(imagePopup);
+//   });
+// });
 
 
 // Получаем элементы попапа изображения
@@ -111,10 +146,19 @@ imagePopup.querySelector('.popup__close').addEventListener('click', ()=>{
   closePopup(imagePopup);
 });
 
-// Обработчик закрытия по оверлею
-imagePopup.addEventListener('click', (evt) => {
-  if (evt.target === imagePopup) {
-   closePopup(imagePopup);
+// Функция для поиска открытого попапа
+function getOpenedPopup() {
+  return document.querySelector('.popup_is-opened');
+}
+
+// Обработчик закрытия по Escape для всех попапов
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    const openedPopup = getOpenedPopup();
+    if (openedPopup) {
+      closePopup(openedPopup);
+    }
   }
 });
+
  })(); 
