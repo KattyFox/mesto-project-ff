@@ -1,82 +1,120 @@
+import './pages/index.css';
+import './components/card.js';
+import './components/modal.js'
+
+import {createCard, addCard} from "./components/card.js"
+import { setSubmitButtonState,  closePopup, openPopup } from "./components/modal.js";
+import { initialCards } from "./scripts/cards.js";
+
+(function () {
+// поиск DOM-элементов на странице 
+const placesList = document.querySelector(".places__list");
+const editForm = document.forms['edit-profile'];
+const editPopup = document.querySelector('.popup_type_edit');
+const nameInput = editForm.elements.name;
+const jobInput = editForm.elements.description;
+const profileTitle = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__description");
+const form = document.forms['new-place']; // getting form by name
+const placeName = form.elements['place-name']; // getting form elements
+const link = form.elements.link;
+const submitButton = form.querySelector('.popup__button');
+const addButton = document.querySelector('.profile__add-button');
+const editButton = document.querySelector('.profile__edit-button');
+const newCardPopup = document.querySelector('.popup_type_new-card');
 
 
-// function createCard(cardData, deleteCallback) {
-//   //clone card template
-//   const cardTemplate = document.querySelector("#card-template").content;
-//   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+// CLOSE by OVERLAY
+newCardPopup.addEventListener("click", function (evt) {
+  if (evt.target === newCardPopup) {
+    closePopup(newCardPopup);
+  }
+});
 
-//   //detected card Elements
-//   const cardImage = cardElement.querySelector(".card__image");
-//   const cardTitle = cardElement.querySelector(".card__title");
-//   const deleteButton = cardElement.querySelector(".card__delete-button");
+// CLOSE by "X" and Overlay
+editPopup
+  .querySelector(".popup__close")
+  .addEventListener("click", () => closePopup(editPopup));
+editPopup.addEventListener("click", (evt) => {
+  if (evt.target === editPopup) {
+    closePopup(editPopup);
+  }
+});
 
-//   // cards Data
-//   cardImage.src = cardData.link;
-//   cardImage.alt = cardData.name;
-//   cardTitle.textContent = cardData.name;
 
-//   deleteButton.addEventListener("click", deleteCallback);
+// AND CLOSE POPUP
+editForm.addEventListener('submit', function(evt) {
+  evt.preventDefault();
 
-//   return cardElement;
-// }
+  // NEW Data
+  profileTitle.textContent = nameInput.value;
+  profileDescription.textContent = jobInput.value;
 
-// const placesList = document.querySelector(".places__list");
+  closePopup(editPopup);
+});
 
-// const newCardPopup = document.querySelector(".popup_type_new-card");
-// const newCardForm = newCardPopup.querySelector(".popup__form");
-// const placeNameInput = newCardForm.querySelector(
-//   ".popup__input_type_card-name"
-// );
-// const linkInput = newCardForm.querySelector(".popup__input_type_url");
 
-// //delete function
-// function deleteCard(evt) {
-//   evt.target.closest(".card").remove();
-// }
+// Button EDDTING
+editButton.addEventListener('click', ()=>{
 
-// initialCards.forEach((card) => {
-//   placesList.append(createCard(card, deleteCard));
-// });
+  // CURRENT data of progile
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileDescription.textContent;
 
-// function openPopup(popup) {
-//   popup.style.display = "flex";
-//   popup.style.visibility = "visible";
-//   popup.style.opacity = "1";
-// }
+  // VALIDATION FORMf
+  setSubmitButtonState(editForm.querySelector(".popup__button"), submitButton);
+  openPopup(editPopup);
+});
 
-// function closePopup(popup) {
-//   popup.style.display = "flex";
-//   popup.style.visibility = "hidden";
-//   popup.style.opacity = "0";
-// }
 
-// //adding new card to the page
+newCardPopup
+  .querySelector(".popup__close")
+  .addEventListener("click", function () {
+    closePopup(newCardPopup);
+  });
 
-// const profileAddButton = document.querySelector(".profile__add-button");
 
-// profileAddButton.addEventListener("click", () => {
-//   openPopup(newCardPopup);
-// });
+// Sending FORMS
+form.addEventListener("submit", function (evt) {
+  evt.preventDefault();
+  addCard(placeName.value, link.value, placesList);
+  form.reset();
+  closePopup(newCardPopup);
+  setSubmitButtonState(false, submitButton);
+});
 
-// document.querySelectorAll(".popup__close").forEach((button) => {
-//   button.addEventListener("click", () => {
-//     const popup = button.closest(".popup");
-//     closePopup(popup);
-//   });
-// });
+// VALIDNESS FORM
+form.addEventListener("input", function () {
+  const isValid = placeName.value.length > 0 && link.value.length > 0;
+  setSubmitButtonState(isValid, submitButton);
+});
 
-// // adding function
-// function AddCardSubmit(evt) {
-//   evt.preventDefault();
 
-//   const newCardData = {
-//     name: placeNameInput.value,
-//     link: linkInput.value,
-//   };
+// функция-обработчик события открытия модального окна для редактирования профиля
+addButton.addEventListener("click", function () {
+  openPopup(newCardPopup);
+});
 
-//   placesList.prepend(createCard(newCardData, deleteCard));
-//   newCardForm.reset();
-//   closePopup(newCardPopup);
-// }
 
-// newCardForm.addEventListener("submit", AddCardSubmit);
+
+// Инициализация начальных 6 карточек
+initialCards.forEach(function (card) {
+  placesList.append(createCard(card));
+});
+
+
+// Получаем элементы попапа изображения
+const imagePopup = document.querySelector('.popup_type_image');
+
+// Обработчик закрытия по крестику
+imagePopup.querySelector('.popup__close').addEventListener('click', ()=>{
+  closePopup(imagePopup);
+});
+
+// Обработчик закрытия по оверлею
+imagePopup.addEventListener('click', (evt) => {
+  if (evt.target === imagePopup) {
+   closePopup(imagePopup);
+  }
+});
+ })(); 
