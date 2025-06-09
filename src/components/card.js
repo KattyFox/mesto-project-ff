@@ -21,31 +21,12 @@ function createCard(cardData) {
     evt.target.classList.toggle('card__like-button_is-active');
   });
 
- // OPEN IMAGE BY CLICK
-  cardImage.addEventListener('click', () => {
-
-    const imagePopup = document.querySelector(".popup_type_image");
-    const popupImage = imagePopup.querySelector(".popup__image");
-    const popupCaption = imagePopup.querySelector(".popup__caption");
-
-    popupImage.src = cardData.link;
-    popupImage.alt = cardData.name;
-    popupCaption.textContent = cardData.name;
-
-    openPopup(imagePopup);
-  });
   
 
   return cardElement;
 }
 
 
-// FUNCTION ADDING CARD
-function addCard(nameValue, linkValue, placesList) {
-  placesList.prepend(createCard({
-    name: nameValue,
-    link: linkValue
-  }));
-}
 
-export {createCard, addCard};
+
+export {createCard};

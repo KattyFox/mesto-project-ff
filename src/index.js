@@ -2,7 +2,7 @@ import './pages/index.css';
 import './components/card.js';
 import './components/modal.js'
 
-import {createCard, addCard} from "./components/card.js"
+import {createCard} from "./components/card.js"
 import { setSubmitButtonState,  closePopup, openPopup } from "./components/modal.js";
 import { initialCards } from "./scripts/cards.js";
 
@@ -23,6 +23,14 @@ const addButton = document.querySelector('.profile__add-button');
 const editButton = document.querySelector('.profile__edit-button');
 const newCardPopup = document.querySelector('.popup_type_new-card');
 
+
+// FUNCTION ADDING CARD
+function addCard(nameValue, linkValue, placesList) {
+  placesList.prepend(createCard({
+    name: nameValue,
+    link: linkValue
+  }));
+}
 
 // CLOSE by OVERLAY
 newCardPopup.addEventListener("click", function (evt) {
@@ -61,7 +69,7 @@ editButton.addEventListener('click', ()=>{
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileDescription.textContent;
 
-  // VALIDATION FORMf
+  // VALIDATION
   setSubmitButtonState(editForm.querySelector(".popup__button"), submitButton);
   openPopup(editPopup);
 });
@@ -74,7 +82,7 @@ newCardPopup
   });
 
 
-// Sending FORMS
+// Отправка формы
 form.addEventListener("submit", function (evt) {
   evt.preventDefault();
   addCard(placeName.value, link.value, placesList);
@@ -83,7 +91,7 @@ form.addEventListener("submit", function (evt) {
   setSubmitButtonState(false, submitButton);
 });
 
-// VALIDNESS FORM
+// Валидация формы
 form.addEventListener("input", function () {
   const isValid = placeName.value.length > 0 && link.value.length > 0;
   setSubmitButtonState(isValid, submitButton);
