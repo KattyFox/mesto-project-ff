@@ -21,12 +21,8 @@ function createCard(cardData) {
     evt.target.classList.toggle('card__like-button_is-active');
   });
 
-  
-
   return cardElement;
 }
-
-
 
 
 export {createCard};

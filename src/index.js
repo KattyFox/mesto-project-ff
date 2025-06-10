@@ -15,11 +15,11 @@ const nameInput = editForm.elements.name;
 const jobInput = editForm.elements.description;
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
-const form = document.forms['new-place']; // getting form by name
-const placeName = form.elements['place-name']; // getting form elements
-const link = form.elements.link;
-const submitButton = form.querySelector('.popup__button');
-const addButton = document.querySelector('.profile__add-button');
+const newCardForm = document.forms['new-place']; // getting form by name
+const placeName = newCardForm.elements['place-name']; // getting form elements
+const newCardImageLink = newCardForm.elements.link;
+const submitProfileButton = newCardForm.querySelector('.popup__button');
+const addNewCardButton = document.querySelector('.profile__add-button');
 const editButton = document.querySelector('.profile__edit-button');
 const newCardPopup = document.querySelector('.popup_type_new-card');
 
@@ -31,23 +31,6 @@ function addCard(nameValue, linkValue, placesList) {
     link: linkValue
   }));
 }
-
-// CLOSE by OVERLAY
-//newCardPopup.addEventListener("click", function (evt) {
-//  if (evt.target === newCardPopup) {
-//    closePopup(newCardPopup);
-//  }
-//});
-
-// CLOSE by "X" and Overlay
-//editPopup
-//  .querySelector(".popup__close")
-//  .addEventListener("click", () => closePopup(editPopup));
-//editPopup.addEventListener("click", (evt) => {
-//  if (evt.target === editPopup) {
-//    closePopup(editPopup);
-//  }
-//});
 
 
 // Обработчик submit
@@ -70,7 +53,7 @@ editButton.addEventListener('click', ()=>{
   jobInput.value = profileDescription.textContent;
 
   // VALIDATION
-  setSubmitButtonState(editForm.querySelector(".popup__button"), submitButton);
+  setSubmitButtonState(editForm.querySelector(".popup__button"), submitProfileButton);
   openPopup(editPopup);
 });
 
@@ -83,23 +66,23 @@ newCardPopup
 
 
 // Отправка формы
-form.addEventListener("submit", function (evt) {
+newCardForm.addEventListener("submit", function (evt) {
   evt.preventDefault();
-  addCard(placeName.value, link.value, placesList);
-  form.reset();
+  addCard(placeName.value, newCardImageLink.value, placesList);
+  newCardForm.reset();
   closePopup(newCardPopup);
-  setSubmitButtonState(false, submitButton);
+  setSubmitButtonState(false, submitProfileButton);
 });
 
 // Валидация формы
-form.addEventListener("input", function () {
-  const isValid = placeName.value.length > 0 && link.value.length > 0;
-  setSubmitButtonState(isValid, submitButton);
+newCardForm.addEventListener("input", function () {
+  const isValid = placeName.value.length > 0 && newCardImageLink.value.length > 0;
+  setSubmitButtonState(isValid, submitProfileButton);
 });
 
 
 // функция-обработчик события открытия модального окна для редактирования профиля
-addButton.addEventListener("click", function () {
+addNewCardButton.addEventListener("click", function () {
   openPopup(newCardPopup);
 });
 
