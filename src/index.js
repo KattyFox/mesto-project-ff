@@ -33,21 +33,21 @@ function addCard(nameValue, linkValue, placesList) {
 }
 
 // CLOSE by OVERLAY
-newCardPopup.addEventListener("click", function (evt) {
-  if (evt.target === newCardPopup) {
-    closePopup(newCardPopup);
-  }
-});
+//newCardPopup.addEventListener("click", function (evt) {
+//  if (evt.target === newCardPopup) {
+//    closePopup(newCardPopup);
+//  }
+//});
 
 // CLOSE by "X" and Overlay
-editPopup
-  .querySelector(".popup__close")
-  .addEventListener("click", () => closePopup(editPopup));
-editPopup.addEventListener("click", (evt) => {
-  if (evt.target === editPopup) {
-    closePopup(editPopup);
-  }
-});
+//editPopup
+//  .querySelector(".popup__close")
+//  .addEventListener("click", () => closePopup(editPopup));
+//editPopup.addEventListener("click", (evt) => {
+//  if (evt.target === editPopup) {
+//    closePopup(editPopup);
+//  }
+//});
 
 
 // AND CLOSE POPUP
@@ -162,6 +162,24 @@ function getOpenedPopup() {
 // Обработчик закрытия по Escape для всех попапов
 document.addEventListener('keydown', (evt) => {
   if (evt.key === 'Escape') {
+    const openedPopup = getOpenedPopup();
+    if (openedPopup) {
+      closePopup(openedPopup);
+    }
+  }
+});
+
+document.addEventListener('click', (evt) => {
+  const openedPopup = getOpenedPopup();
+  if (!openedPopup) return;
+
+  if (evt.target === openedPopup) {
+    closePopup(openedPopup);
+  }
+});
+
+document.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup__close')) {
     const openedPopup = getOpenedPopup();
     if (openedPopup) {
       closePopup(openedPopup);
