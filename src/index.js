@@ -81,21 +81,21 @@ newCardForm.addEventListener("input", function () {
 });
 
 
-// функция-обработчик события открытия модального окна для редактирования профиля
+// функция-обработчик для открытия попапа (ред проф-ль)
 addNewCardButton.addEventListener("click", function () {
   openPopup(newCardPopup);
 });
 
 
-// Добавляем наши 6х начальных карт
+// Добавляем наши 6 начальных карт
 initialCards.forEach((cardData) => {
   const cardElement = createCard(cardData);
   placesList.append(cardElement);
 });
 
-// Обработчик на весь список карточек /делегирование события
+// Обработчик на весь список карточек /"делегирование события"
 placesList.addEventListener('click', (evt) => {
-  // Проверка клика на изображение 
+  // Проверка клика на картинке
   if (evt.target.classList.contains('card__image')) {
     const card = evt.target.closest('.card');
     const cardTitle = card.querySelector('.card__title');
