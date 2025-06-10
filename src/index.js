@@ -52,7 +52,7 @@ editButton.addEventListener('click', ()=>{
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileDescription.textContent;
 
-  // VALIDATION
+  // ВАлидация кнопки добавления новой карточки
   setSubmitButtonState(editForm.querySelector(".popup__button"), submitProfileButton);
   openPopup(editPopup);
 });
@@ -74,7 +74,7 @@ newCardForm.addEventListener("submit", function (evt) {
   setSubmitButtonState(false, submitProfileButton);
 });
 
-// Валидация формы
+// Валидация формы профиля
 newCardForm.addEventListener("input", function () {
   const isValid = placeName.value.length > 0 && newCardImageLink.value.length > 0;
   setSubmitButtonState(isValid, submitProfileButton);
@@ -87,28 +87,7 @@ addNewCardButton.addEventListener("click", function () {
 });
 
 
-// for( let i = 0 ; i< initialCards.length; i++ ){
-//   const cardData = initialCards[i];
-//   const createdElement = createCard(cardData);
-
-//   const cardImage = createdElement.querySelector('.card__image');
-
-//   cardImage.addEventListener('click', () => {
-//     const imagePopup = document.querySelector(".popup_type_image");
-//     const popupImage = imagePopup.querySelector(".popup__image");
-//     const popupCaption = imagePopup.querySelector(".popup__caption");
-
-//     popupImage.src = cardData.link;
-//     popupImage.alt = cardData.name;
-//     popupCaption.textContent = cardData.name;
-
-//     openPopup(imagePopup);
-//   });
-
-//   placesList.append(createdElement);
-// }
-
-// 1. Сначала создаем и добавляем все начальные карточки (без обработчиков)
+// Добавляем наши 6х начальных карт
 initialCards.forEach((cardData) => {
   const cardElement = createCard(cardData);
   placesList.append(cardElement);
@@ -121,13 +100,12 @@ placesList.addEventListener('click', (evt) => {
     const card = evt.target.closest('.card');
     const cardTitle = card.querySelector('.card__title');
     
-    // Получаем данные карточки
     const cardData = {
       link: evt.target.src,
       name: evt.target.alt || cardTitle.textContent
     };
 
-    // Находим попап и его элементы
+    // Попапы и их элементы
     const imagePopup = document.querySelector(".popup_type_image");
     const popupImage = imagePopup.querySelector(".popup__image");
     const popupCaption = imagePopup.querySelector(".popup__caption");
@@ -137,46 +115,16 @@ placesList.addEventListener('click', (evt) => {
     popupImage.alt = cardData.name;
     popupCaption.textContent = cardData.name;
 
-    // Открываем попап
     openPopup(imagePopup);
   }
 });
 
-// Инициализация начальных 6 карточек
-// initialCards.forEach(function (cardData) {
-//   const createdElement = createCard(cardData);
-//   placesList.append(createdElement);
 
-//    // OPEN IMAGE BY CLICK
-//   cardImage.addEventListener('click', () => {
-
-//     const imagePopup = document.querySelector(".popup_type_image");
-//     const popupImage = imagePopup.querySelector(".popup__image");
-//     const popupCaption = imagePopup.querySelector(".popup__caption");
-
-//     popupImage.src = cardData.link;
-//     popupImage.alt = cardData.name;
-//     popupCaption.textContent = cardData.name;
-
-//     openPopup(imagePopup);
-//   });
-// });
-
-
-// Получаем элементы попапа изображения
-//const imagePopup = document.querySelector('.popup_type_image');
-
-// Обработчик закрытия по крестику
-//imagePopup.querySelector('.popup__close').addEventListener('click', ()=>{
-//  closePopup(imagePopup);
-//s});
-
-// Функция для поиска открытого попапа
 function getOpenedPopup() {
   return document.querySelector('.popup_is-opened');
 }
 
-// Обработчик закрытия по Escape для всех попапов
+// Закрытие по Escape
 document.addEventListener('keydown', (evt) => {
   if (evt.key === 'Escape') {
     const openedPopup = getOpenedPopup();
@@ -195,7 +143,7 @@ document.addEventListener('click', (evt) => {
   }
 });
 
-// Закрытие по дефолтному кресту в углуы
+// Закрытие по дефолтному кресту в углу
 document.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup__close')) {
     const openedPopup = getOpenedPopup();
