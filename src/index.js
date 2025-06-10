@@ -50,7 +50,7 @@ function addCard(nameValue, linkValue, placesList) {
 //});
 
 
-// AND CLOSE POPUP
+// Обработчик submit
 editForm.addEventListener('submit', function(evt) {
   evt.preventDefault();
 
@@ -104,26 +104,60 @@ addButton.addEventListener("click", function () {
 });
 
 
-for( let i = 0 ; i< initialCards.length; i++ ){
-  const cardData = initialCards[i];
-  const createdElement = createCard(cardData);
+// for( let i = 0 ; i< initialCards.length; i++ ){
+//   const cardData = initialCards[i];
+//   const createdElement = createCard(cardData);
 
-  const cardImage = createdElement.querySelector('.card__image');
+//   const cardImage = createdElement.querySelector('.card__image');
 
-  cardImage.addEventListener('click', () => {
+//   cardImage.addEventListener('click', () => {
+//     const imagePopup = document.querySelector(".popup_type_image");
+//     const popupImage = imagePopup.querySelector(".popup__image");
+//     const popupCaption = imagePopup.querySelector(".popup__caption");
+
+//     popupImage.src = cardData.link;
+//     popupImage.alt = cardData.name;
+//     popupCaption.textContent = cardData.name;
+
+//     openPopup(imagePopup);
+//   });
+
+//   placesList.append(createdElement);
+// }
+
+// 1. Сначала создаем и добавляем все начальные карточки (без обработчиков)
+initialCards.forEach((cardData) => {
+  const cardElement = createCard(cardData);
+  placesList.append(cardElement);
+});
+
+// Обработчик на весь список карточек /делегирование события
+placesList.addEventListener('click', (evt) => {
+  // Проверка клика на изображение 
+  if (evt.target.classList.contains('card__image')) {
+    const card = evt.target.closest('.card');
+    const cardTitle = card.querySelector('.card__title');
+    
+    // Получаем данные карточки
+    const cardData = {
+      link: evt.target.src,
+      name: evt.target.alt || cardTitle.textContent
+    };
+
+    // Находим попап и его элементы
     const imagePopup = document.querySelector(".popup_type_image");
     const popupImage = imagePopup.querySelector(".popup__image");
     const popupCaption = imagePopup.querySelector(".popup__caption");
 
+    // Заполняем попап данными
     popupImage.src = cardData.link;
     popupImage.alt = cardData.name;
     popupCaption.textContent = cardData.name;
 
+    // Открываем попап
     openPopup(imagePopup);
-  });
-
-  placesList.append(createdElement);
-}
+  }
+});
 
 // Инициализация начальных 6 карточек
 // initialCards.forEach(function (cardData) {
@@ -147,12 +181,12 @@ for( let i = 0 ; i< initialCards.length; i++ ){
 
 
 // Получаем элементы попапа изображения
-const imagePopup = document.querySelector('.popup_type_image');
+//const imagePopup = document.querySelector('.popup_type_image');
 
 // Обработчик закрытия по крестику
-imagePopup.querySelector('.popup__close').addEventListener('click', ()=>{
-  closePopup(imagePopup);
-});
+//imagePopup.querySelector('.popup__close').addEventListener('click', ()=>{
+//  closePopup(imagePopup);
+//s});
 
 // Функция для поиска открытого попапа
 function getOpenedPopup() {
@@ -168,7 +202,7 @@ document.addEventListener('keydown', (evt) => {
     }
   }
 });
-
+//Закрытие по оверлею
 document.addEventListener('click', (evt) => {
   const openedPopup = getOpenedPopup();
   if (!openedPopup) return;
@@ -178,6 +212,7 @@ document.addEventListener('click', (evt) => {
   }
 });
 
+// Закрытие по дефолтному кресту в углуы
 document.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup__close')) {
     const openedPopup = getOpenedPopup();
