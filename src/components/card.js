@@ -1,11 +1,9 @@
 
-import {openPopup} from "../components/modal.js"
-
 // FUNCTION CREATE CARD
 function createCard(cardData) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__image');
+//  const cardImage = cardElement.querySelector('.card__image');
 
   cardElement.querySelector('.card__image').src = cardData.link;
   cardElement.querySelector('.card__image').alt = cardData.name;

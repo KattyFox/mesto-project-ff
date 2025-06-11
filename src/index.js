@@ -24,6 +24,16 @@ const editButton = document.querySelector('.profile__edit-button');
 const newCardPopup = document.querySelector('.popup_type_new-card');
 
 
+
+// Попапы и их элементы + проверка
+const imagePopup = document.querySelector(".popup_type_image");
+let popupImage, popupCaption;
+  if (imagePopup) {
+    popupImage = imagePopup.querySelector(".popup__image");
+    popupCaption = imagePopup.querySelector(".popup__caption");
+  }
+
+
 // FUNCTION ADDING CARD
 function addCard(nameValue, linkValue, placesList) {
   placesList.prepend(createCard({
@@ -105,12 +115,7 @@ placesList.addEventListener('click', (evt) => {
       name: evt.target.alt || cardTitle.textContent
     };
 
-    // Попапы и их элементы
-    const imagePopup = document.querySelector(".popup_type_image");
-    const popupImage = imagePopup.querySelector(".popup__image");
-    const popupCaption = imagePopup.querySelector(".popup__caption");
-
-    // Заполняем попап данными
+  // Заполняем попап данными
     popupImage.src = cardData.link;
     popupImage.alt = cardData.name;
     popupCaption.textContent = cardData.name;
@@ -124,33 +129,34 @@ function getOpenedPopup() {
   return document.querySelector('.popup_is-opened');
 }
 
-// Закрытие по Escape
-document.addEventListener('keydown', (evt) => {
+// Именные обработчики событий без dociments
+function handleEscKey(evt) {
   if (evt.key === 'Escape') {
-    const openedPopup = getOpenedPopup();
-    if (openedPopup) {
-      closePopup(openedPopup);
-    }
+    const popup = getOpenedPopup();
+    if (popup) closePopup(popup);
   }
-});
-//Закрытие по оверлею
-document.addEventListener('click', (evt) => {
-  const openedPopup = getOpenedPopup();
-  if (!openedPopup) return;
+}
 
-  if (evt.target === openedPopup) {
-    closePopup(openedPopup);
+function handlePopupClick(evt) {
+  const popup = getOpenedPopup();
+  if (!popup) return;
+  
+  if (evt.target === popup || evt.target.classList.contains('popup__close')) {
+    closePopup(popup);
   }
-});
+}
 
-// Закрытие по дефолтному кресту в углу
-document.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup__close')) {
-    const openedPopup = getOpenedPopup();
-    if (openedPopup) {
-      closePopup(openedPopup);
-    }
-  }
-});
+// Функции открытия/закрытия попап
+function openPopup(popup) {
+  popup.classList.add('popup_is-opened');
+  document.addEventListener('keydown', handleEscKey);
+  document.addEventListener('click', handlePopupClick);
+}
+
+function closePopup(popup) {
+  popup.classList.remove('popup_is-opened');
+  document.removeEventListener('keydown', handleEscKey);
+  document.removeEventListener('click', handlePopupClick);
+}
 
  })(); 
