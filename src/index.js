@@ -124,39 +124,4 @@ placesList.addEventListener('click', (evt) => {
   }
 });
 
-
-function getOpenedPopup() {
-  return document.querySelector('.popup_is-opened');
-}
-
-// Именные обработчики событий без dociments
-function handleEscKey(evt) {
-  if (evt.key === 'Escape') {
-    const popup = getOpenedPopup();
-    if (popup) closePopup(popup);
-  }
-}
-
-function handlePopupClick(evt) {
-  const popup = getOpenedPopup();
-  if (!popup) return;
-  
-  if (evt.target === popup || evt.target.classList.contains('popup__close')) {
-    closePopup(popup);
-  }
-}
-
-// Функции открытия/закрытия попап
-function openPopup(popup) {
-  popup.classList.add('popup_is-opened');
-  document.addEventListener('keydown', handleEscKey);
-  document.addEventListener('click', handlePopupClick);
-}
-
-function closePopup(popup) {
-  popup.classList.remove('popup_is-opened');
-  document.removeEventListener('keydown', handleEscKey);
-  document.removeEventListener('click', handlePopupClick);
-}
-
  })(); 
