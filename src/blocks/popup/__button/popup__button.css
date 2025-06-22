@@ -25,3 +25,12 @@
     line-height: 17px;
   }
 }
+
+/*кнопка состояния disabled*/
+.popup__button_disabled {
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+  opacity: 0.2;
+  cursor: default;
+}

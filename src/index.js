@@ -1,10 +1,13 @@
 import './pages/index.css';
 import './components/card.js';
-import './components/modal.js'
+import './components/modal.js';
+import './components/validation.js';
 
 import {createCard} from "./components/card.js"
 import { setSubmitButtonState,  closePopup, openPopup } from "./components/modal.js";
 import { initialCards } from "./scripts/cards.js";
+
+import { enableValidation, clearValidation } from "./components/validation.js";
 
 (function () {
 // поиск DOM-элементов на странице 
@@ -88,6 +91,7 @@ newCardForm.addEventListener("submit", function (evt) {
 newCardForm.addEventListener("input", function () {
   const isValid = placeName.value.length > 0 && newCardImageLink.value.length > 0;
   setSubmitButtonState(isValid, submitProfileButton);
+
 });
 
 
@@ -123,5 +127,19 @@ placesList.addEventListener('click', (evt) => {
     openPopup(imagePopup);
   }
 });
+
+// включение валидации вызовом enableValidation
+// все настройки передаются при вызове
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
+
+
 
  })(); 
