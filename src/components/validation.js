@@ -23,8 +23,16 @@ const hideInputError = (formElement, inputElement,settings) => {
 
 
 const checkInputValidity = (formElement, inputElement, settings) => {
+  if (inputElement.validity.patternMismatch) {
+    let message = inputElement.getAttribute('data-error-message');
+    if(message !== undefined)
+      inputElement.setCustomValidity(message);
+  } else {
+    inputElement.setCustomValidity("");
+  }
+
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage,settings);
+    showInputError(formElement, inputElement, inputElement.validationMessage, settings);
   } else {
     hideInputError(formElement, inputElement,settings);
   }
@@ -54,13 +62,14 @@ const enableValidation = (settings) => {
 
 };
 
-const clearValidation = (formElement) => {
+const clearValidation = (formElement, validationConfig) => {
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
   const buttonElement = formElement.querySelector('.popup__button');
   
   inputList.forEach(inputElement => {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement,validationConfig);
     inputElement.setCustomValidity(''); // Сбрасываем кастомные сообщения
+    inputElement.value='';
   });
 
   

@@ -26,6 +26,14 @@ const addNewCardButton = document.querySelector('.profile__add-button');
 const editButton = document.querySelector('.profile__edit-button');
 const newCardPopup = document.querySelector('.popup_type_new-card');
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
 
 
 // Попапы и их элементы + проверка
@@ -98,6 +106,7 @@ newCardForm.addEventListener("input", function () {
 // функция-обработчик для открытия попапа (ред проф-ль)
 addNewCardButton.addEventListener("click", function () {
   openPopup(newCardPopup);
+  clearValidation(newCardPopup, validationConfig);
 });
 
 
@@ -131,14 +140,8 @@ placesList.addEventListener('click', (evt) => {
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+
+enableValidation(validationConfig);
 
 
 
