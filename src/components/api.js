@@ -19,5 +19,20 @@ async function getCards() {
   });
 }
 
-export{getMe, getCards}
+async function updProfileData (newName, newAbout) {
+  fetch(baseUrl+ meUrl, {
+  method: 'PATCH',
+  headers: {
+    authorization: 'ca9c73cd-774d-4dee-9109-08215140258b',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: newName,
+    about: newAbout
+  })
+});
+
+}
+
+export{getMe, getCards, updProfileData}
 

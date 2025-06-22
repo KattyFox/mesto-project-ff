@@ -9,7 +9,7 @@ import { initialCards } from "./scripts/cards.js";
 
 import { enableValidation, clearValidation } from "./components/validation.js";
 
-import { getMe,getCards } from './components/api.js';
+import { getMe,getCards, updProfileData } from './components/api.js';
 
 (function () {
 // поиск DOM-элементов на странице 
@@ -65,7 +65,10 @@ editForm.addEventListener('submit', function(evt) {
   profileTitle.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
 
+  updProfileData(nameInput.value, jobInput.value);
+  
   closePopup(editPopup);
+
 });
 
 
@@ -114,10 +117,10 @@ addNewCardButton.addEventListener("click", function () {
 
 
 // Добавляем наши 6 начальных карт
-initialCards.forEach((cardData) => {
-  const cardElement = createCard(cardData);
-  placesList.append(cardElement);
-});
+//initialCards.forEach((cardData) => {
+//  const cardElement = createCard(cardData);
+//  placesList.append(cardElement);
+//});
 
 // Обработчик на весь список карточек /"делегирование события"
 placesList.addEventListener('click', (evt) => {
@@ -189,7 +192,7 @@ UpdateMe();
 
 
 async function checkRequest(){
-  const response = await getCards();
+  const response = await updProfileData("My new Name", "My new About");
 
     if (response.ok) { // если HTTP-статус в диапазоне 200-299
     // получаем тело ответа (см. про этот метод ниже)
@@ -208,7 +211,10 @@ async function updCards(){
     if (response.ok) { // если HTTP-статус в диапазоне 200-299
     // получаем тело ответа (см. про этот метод ниже)
     let json = await response.json();
-    console.log(json);
+    // console.log(json);
+    json.forEach(element => {
+      addCard(element.name, element.link, placesList);
+    });
     
   } else {
     alert("Ошибка HTTP: " + response.status);
