@@ -9,6 +9,8 @@ import { initialCards } from "./scripts/cards.js";
 
 import { enableValidation, clearValidation } from "./components/validation.js";
 
+import { getMe,getCards } from './components/api.js';
+
 (function () {
 // поиск DOM-элементов на странице 
 const placesList = document.querySelector(".places__list");
@@ -17,6 +19,7 @@ const editPopup = document.querySelector('.popup_type_edit');
 const nameInput = editForm.elements.name;
 const jobInput = editForm.elements.description;
 const profileTitle = document.querySelector(".profile__title");
+const profileAvatar = document.querySelector(".profile__image")
 const profileDescription = document.querySelector(".profile__description");
 const newCardForm = document.forms['new-place']; // getting form by name
 const placeName = newCardForm.elements['place-name']; // getting form elements
@@ -144,5 +147,74 @@ placesList.addEventListener('click', (evt) => {
 enableValidation(validationConfig);
 
 
+// Привет🤍 Твой токен ca9c73cd-774d-4dee-9109-08215140258b
+// Идентификатор нашей когорты wff-cohort-41
+// return fetch('https://nomoreparties.co/v1/wff-cohort-41/cards', {
+//   headers: {
+//     authorization: 'ca9c73cd-774d-4dee-9109-08215140258b'
+//   }
+// })
+//   .then(res => res.json())
+//   .then((result) => {
+//     console.log(result);
+//   });
+
+
+//  return fetch('https://nomoreparties.co/v1/wff-cohort-41/users/me', {
+//   headers: {
+//     authorization: 'ca9c73cd-774d-4dee-9109-08215140258b'
+//   }
+// })
+//   .then(res => res.json())
+//   .then((result) => {
+//     console.log(result);
+//   });
+
+async function UpdateMe(){
+const response = await getMe();
+
+  if (response.ok) { // если HTTP-статус в диапазоне 200-299
+    // получаем тело ответа (см. про этот метод ниже)
+    let json = await response.json();
+  
+  profileTitle.innerHTML = json['name'];
+  profileDescription.innerHTML =  json['about'];
+  profileAvatar.style.backgroundImage=`url(${json[`avatar`]})`;
+
+  } else {
+    alert("Ошибка HTTP: " + response.status);
+  }
+}
+UpdateMe();
+
+
+async function checkRequest(){
+  const response = await getCards();
+
+    if (response.ok) { // если HTTP-статус в диапазоне 200-299
+    // получаем тело ответа (см. про этот метод ниже)
+    let json = await response.json();
+    console.log(json);
+    
+  } else {
+    alert("Ошибка HTTP: " + response.status);
+  }
+}
+//checkRequest();
+
+async function updCards(){
+  const response = await getCards();
+
+    if (response.ok) { // если HTTP-статус в диапазоне 200-299
+    // получаем тело ответа (см. про этот метод ниже)
+    let json = await response.json();
+    console.log(json);
+    
+  } else {
+    alert("Ошибка HTTP: " + response.status);
+  }
+}
+
+  updCards()
 
  })(); 
