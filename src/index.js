@@ -59,7 +59,8 @@ function addCard(nameValue, linkValue, placesList,cardLikes, cardCanBeDeleted, c
     id:cardId,
     onDelete:onDeleteCard,
     onLike:onLikeCard,
-    isLiked:isLikesByUs
+    isLiked:isLikesByUs,
+    onUnLike:onUnLikeCard,
   });
   placesList.prepend(card);
 }
@@ -70,6 +71,12 @@ function onDeleteCard( cardId ){
 
 async function onLikeCard(cardId, likesOnCard){
   const response = await api.like(cardId);
+  let json = await response.json();
+  likesOnCard.innerHTML = json.likes.length;
+}
+
+async function onUnLikeCard(cardId,likesOnCard) {
+    const response = await api.unLike(cardId);
   let json = await response.json();
   likesOnCard.innerHTML = json.likes.length;
 }

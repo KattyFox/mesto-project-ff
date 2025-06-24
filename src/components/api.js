@@ -60,7 +60,6 @@ async function deleteCard (cardId) {
 }
 
 
-//PUT https://nomoreparties.co/v1/cohortId/cards/likes/cardId 
 async function like(cardId) {
   return fetch(baseUrl+cards+likes+"/"+cardId, {
   method: 'PUT',
@@ -71,5 +70,15 @@ async function like(cardId) {
 });
 }
 
-export{getMe, getCards, updProfileData,uploadCard,deleteCard, like}
+async function unLike(cardId) {
+  return fetch(baseUrl+cards+likes+"/"+cardId, {
+  method: 'DELETE',
+  headers: {
+    authorization: 'ca9c73cd-774d-4dee-9109-08215140258b',
+    'Content-Type': 'application/json'
+  }
+});
+}
+
+export{getMe, getCards, updProfileData,uploadCard,deleteCard, like, unLike}
 

@@ -32,8 +32,14 @@ function createCard(cardData) {
   // LIKE CARD
   likeButton.addEventListener('click', (evt) => {
     const likeCounter = likesOnCard;
+
+    if(evt.target.classList.contains('card__like-button_is-active')){
+      cardData.onUnLike(dataContainer.dataset.cardId,likeCounter);
+    } else {
+      cardData.onLike(dataContainer.dataset.cardId,likeCounter);
+    }
+
     evt.target.classList.toggle('card__like-button_is-active');
-    cardData.onLike(dataContainer.dataset.cardId,likeCounter);
   });
 
   if (cardData.isLiked){
