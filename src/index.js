@@ -57,13 +57,20 @@ function addCard(nameValue, linkValue, placesList,cardLikes, cardCanBeDeleted, c
     likes:cardLikes,
     canBeDeleted:cardCanBeDeleted,
     id:cardId,
-    onDelete:onDeleteCard
+    onDelete:onDeleteCard,
+    onLike:onLikeCard
   });
   placesList.prepend(card);
 }
 
 function onDeleteCard( cardId ){
   api.deleteCard(cardId);
+}
+
+async function onLikeCard(cardId, likesOnCard){
+  const response = await api.like(cardId);
+  let json = await response.json();
+  likesOnCard.innerHTML = json.likes.length;
 }
 
 // Обработчик submit

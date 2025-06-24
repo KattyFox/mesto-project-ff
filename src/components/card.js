@@ -7,7 +7,8 @@ function createCard(cardData) {
   cardElement.querySelector('.card__image').src = cardData.link;
   cardElement.querySelector('.card__image').alt = cardData.name;
   cardElement.querySelector('.card__title').textContent = cardData.name;
-  cardElement.querySelector('.likes__on__card').innerHTML = cardData.likes.length;
+  const likesOnCard =cardElement.querySelector('.likes__on__card');
+  likesOnCard.innerHTML = cardData.likes.length;
 
   const dataContainer = cardElement.querySelector('.places__item');
 
@@ -28,7 +29,9 @@ function createCard(cardData) {
 
   // LIKE CARD
   cardElement.querySelector('.card__like-button').addEventListener('click', (evt) => {
+    const likeCounter = likesOnCard;
     evt.target.classList.toggle('card__like-button_is-active');
+    cardData.onLike(dataContainer.dataset.cardId,likeCounter);
   });
 
   return cardElement;

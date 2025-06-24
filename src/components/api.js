@@ -2,6 +2,7 @@ const token = "ca9c73cd-774d-4dee-9109-08215140258b";
 const baseUrl = "https://nomoreparties.co/v1/wff-cohort-41";
 const meUrl = "/users/me";
 const cards = "/cards";
+const likes ="/likes"
 
 async function getMe() {
  return fetch(baseUrl+meUrl, {
@@ -58,5 +59,17 @@ async function deleteCard (cardId) {
 });
 }
 
-export{getMe, getCards, updProfileData,uploadCard,deleteCard}
+
+//PUT https://nomoreparties.co/v1/cohortId/cards/likes/cardId 
+async function like(cardId) {
+  return fetch(baseUrl+cards+likes+"/"+cardId, {
+  method: 'PUT',
+  headers: {
+    authorization: 'ca9c73cd-774d-4dee-9109-08215140258b',
+    'Content-Type': 'application/json'
+  }
+});
+}
+
+export{getMe, getCards, updProfileData,uploadCard,deleteCard, like}
 
