@@ -34,5 +34,21 @@ async function updProfileData (newName, newAbout) {
 
 }
 
-export{getMe, getCards, updProfileData}
+//https://nomoreparties.co/v1/cohortId/cards 
+
+async function uploadCard (imageName, imageLink) {
+ return fetch(baseUrl+cards, {
+  method: 'POST',
+  headers: {
+    authorization: 'ca9c73cd-774d-4dee-9109-08215140258b',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: imageName,
+    link: imageLink
+  })
+});
+}
+
+export{getMe, getCards, updProfileData,uploadCard}
 

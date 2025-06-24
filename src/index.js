@@ -9,7 +9,7 @@ import { initialCards } from "./scripts/cards.js";
 
 import { enableValidation, clearValidation } from "./components/validation.js";
 
-import { getMe,getCards, updProfileData } from './components/api.js';
+import * as api from './components/api.js';
 
 (function () {
 // поиск DOM-элементов на странице 
@@ -65,7 +65,7 @@ editForm.addEventListener('submit', function(evt) {
   profileTitle.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
 
-  updProfileData(nameInput.value, jobInput.value);
+  api.updProfileData(nameInput.value, jobInput.value);
   
   closePopup(editPopup);
 
@@ -95,7 +95,10 @@ newCardPopup
 // Отправка формы
 newCardForm.addEventListener("submit", function (evt) {
   evt.preventDefault();
-  addCard(placeName.value, newCardImageLink.value, placesList);
+  const name = placeName.value;
+  const link = newCardImageLink.value;
+  //addCard(name, link, placesList);
+  api.uploadCard(name,link);
   newCardForm.reset();
   closePopup(newCardPopup);
   setSubmitButtonState(false, submitProfileButton);
@@ -174,7 +177,7 @@ enableValidation(validationConfig);
 //   });
 
 async function UpdateMe(){
-const response = await getMe();
+const response = await api.getMe();
 
   if (response.ok) { // если HTTP-статус в диапазоне 200-299
     // получаем тело ответа (см. про этот метод ниже)
@@ -192,7 +195,7 @@ UpdateMe();
 
 
 async function checkRequest(){
-  const response = await updProfileData("My new Name", "My new About");
+  const response = await api.uploadCard("TestCard", "https://thecity.m24.ru/b/d/SYketSivfIE8LvbObLLBFlFNGhtudTX-kYVfOS8Xp1Gj5pqKzWTJSFS-PsArI08gRZaK1yZktQXWesHOaOz7FWcJ5xZMng=wkBah0vVjBD0lbWqAvz9aA.jpg");
 
     if (response.ok) { // если HTTP-статус в диапазоне 200-299
     // получаем тело ответа (см. про этот метод ниже)
@@ -206,7 +209,7 @@ async function checkRequest(){
 //checkRequest();
 
 async function updCards(){
-  const response = await getCards();
+  const response = await api.getCards();
 
     if (response.ok) { // если HTTP-статус в диапазоне 200-299
     // получаем тело ответа (см. про этот метод ниже)
