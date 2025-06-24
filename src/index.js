@@ -49,10 +49,11 @@ let popupImage, popupCaption;
 
 
 // FUNCTION ADDING CARD
-function addCard(nameValue, linkValue, placesList) {
+function addCard(nameValue, linkValue, placesList,cardLikes) {
   placesList.prepend(createCard({
     name: nameValue,
-    link: linkValue
+    link: linkValue,
+    likes:cardLikes
   }));
 }
 
@@ -208,7 +209,7 @@ async function checkRequest(){
 }
 //checkRequest();
 
-async function updCards(){
+async function getCards(){
   const response = await api.getCards();
 
     if (response.ok) { // если HTTP-статус в диапазоне 200-299
@@ -216,7 +217,7 @@ async function updCards(){
     let json = await response.json();
     // console.log(json);
     json.forEach(element => {
-      addCard(element.name, element.link, placesList);
+      addCard(element.name, element.link, placesList, element.likes);
     });
     
   } else {
@@ -224,6 +225,6 @@ async function updCards(){
   }
 }
 
-  updCards()
+  getCards()
 
  })(); 

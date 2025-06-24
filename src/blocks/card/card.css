@@ -13,3 +13,8 @@
   position: relative;
   overflow: hidden;
 }
+
+.like-container {
+  display: flex;
+  flex-direction: column;
+}

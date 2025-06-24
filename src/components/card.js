@@ -8,6 +8,7 @@ function createCard(cardData) {
   cardElement.querySelector('.card__image').src = cardData.link;
   cardElement.querySelector('.card__image').alt = cardData.name;
   cardElement.querySelector('.card__title').textContent = cardData.name;
+  cardElement.querySelector('.likes__on__card').innerHTML = cardData.likes.length;
 
   // DELETE CARD
   cardElement.querySelector('.card__delete-button').addEventListener('click', (evt) => {
