@@ -49,14 +49,22 @@ let popupImage, popupCaption;
 
 
 // FUNCTION ADDING CARD
-function addCard(nameValue, linkValue, placesList,cardLikes) {
-  placesList.prepend(createCard({
+function addCard(nameValue, linkValue, placesList,cardLikes, cardCanBeDeleted, cardId) {
+  
+  const card = createCard({
     name: nameValue,
     link: linkValue,
-    likes:cardLikes
-  }));
+    likes:cardLikes,
+    canBeDeleted:cardCanBeDeleted,
+    id:cardId,
+    onDelete:onDeleteCard
+  });
+  placesList.prepend(card);
 }
 
+function onDeleteCard( cardId ){
+  api.deleteCard(cardId);
+}
 
 // Обработчик submit
 editForm.addEventListener('submit', function(evt) {
@@ -147,53 +155,55 @@ placesList.addEventListener('click', (evt) => {
   }
 });
 
+
+async function loadPage()
+{
+    let _myId ='';
+
+    async function updateMe(){
+    const response = await api.getMe();
+
+      if (response.ok) { // если HTTP-статус в диапазоне 200-299
+        // получаем тело ответа (см. про этот метод ниже)
+        let json = await response.json();
+      
+      profileTitle.innerHTML = json['name'];
+      profileDescription.innerHTML =  json['about'];
+      profileAvatar.style.backgroundImage=`url(${json[`avatar`]})`;
+      _myId = json['_id'];
+
+      } else {
+        alert("Ошибка HTTP: " + response.status);
+      }
+    }
+
+
+    async function getCards(){
+      const response = await api.getCards();
+
+        if (response.ok) { // если HTTP-статус в диапазоне 200-299
+        // получаем тело ответа (см. про этот метод ниже)
+        let json = await response.json();
+        // console.log(json);
+        json.forEach(element => {
+          addCard(element.name, element.link, placesList, element.likes, element.owner._id === _myId , element._id);
+        });
+        
+      } else {
+        alert("Ошибка HTTP: " + response.status);
+      }
+    }
+
+  enableValidation(validationConfig);
+  await updateMe();
+  await getCards();
+}
+
 // включение валидации вызовом enableValidation
 // все настройки передаются при вызове
 
 
-enableValidation(validationConfig);
-
-
-// Привет🤍 Твой токен ca9c73cd-774d-4dee-9109-08215140258b
-// Идентификатор нашей когорты wff-cohort-41
-// return fetch('https://nomoreparties.co/v1/wff-cohort-41/cards', {
-//   headers: {
-//     authorization: 'ca9c73cd-774d-4dee-9109-08215140258b'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((result) => {
-//     console.log(result);
-//   });
-
-
-//  return fetch('https://nomoreparties.co/v1/wff-cohort-41/users/me', {
-//   headers: {
-//     authorization: 'ca9c73cd-774d-4dee-9109-08215140258b'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((result) => {
-//     console.log(result);
-//   });
-
-async function UpdateMe(){
-const response = await api.getMe();
-
-  if (response.ok) { // если HTTP-статус в диапазоне 200-299
-    // получаем тело ответа (см. про этот метод ниже)
-    let json = await response.json();
-  
-  profileTitle.innerHTML = json['name'];
-  profileDescription.innerHTML =  json['about'];
-  profileAvatar.style.backgroundImage=`url(${json[`avatar`]})`;
-
-  } else {
-    alert("Ошибка HTTP: " + response.status);
-  }
-}
-UpdateMe();
-
+loadPage();
 
 async function checkRequest(){
   const response = await api.uploadCard("TestCard", "https://thecity.m24.ru/b/d/SYketSivfIE8LvbObLLBFlFNGhtudTX-kYVfOS8Xp1Gj5pqKzWTJSFS-PsArI08gRZaK1yZktQXWesHOaOz7FWcJ5xZMng=wkBah0vVjBD0lbWqAvz9aA.jpg");
@@ -209,22 +219,6 @@ async function checkRequest(){
 }
 //checkRequest();
 
-async function getCards(){
-  const response = await api.getCards();
 
-    if (response.ok) { // если HTTP-статус в диапазоне 200-299
-    // получаем тело ответа (см. про этот метод ниже)
-    let json = await response.json();
-    // console.log(json);
-    json.forEach(element => {
-      addCard(element.name, element.link, placesList, element.likes);
-    });
-    
-  } else {
-    alert("Ошибка HTTP: " + response.status);
-  }
-}
-
-  getCards()
 
  })(); 

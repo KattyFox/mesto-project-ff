@@ -34,8 +34,6 @@ async function updProfileData (newName, newAbout) {
 
 }
 
-//https://nomoreparties.co/v1/cohortId/cards 
-
 async function uploadCard (imageName, imageLink) {
  return fetch(baseUrl+cards, {
   method: 'POST',
@@ -50,5 +48,15 @@ async function uploadCard (imageName, imageLink) {
 });
 }
 
-export{getMe, getCards, updProfileData,uploadCard}
+async function deleteCard (cardId) {
+ return fetch(baseUrl+cards+"/"+cardId, {
+  method: 'DELETE',
+  headers: {
+    authorization: 'ca9c73cd-774d-4dee-9109-08215140258b',
+    'Content-Type': 'application/json'
+  }
+});
+}
+
+export{getMe, getCards, updProfileData,uploadCard,deleteCard}
 
