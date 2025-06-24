@@ -10,6 +10,8 @@ function createCard(cardData) {
   const likesOnCard =cardElement.querySelector('.likes__on__card');
   likesOnCard.innerHTML = cardData.likes.length;
 
+  const likeButton = cardElement.querySelector('.card__like-button');
+
   const dataContainer = cardElement.querySelector('.places__item');
 
  if (dataContainer.dataset.cardId === undefined){
@@ -28,11 +30,15 @@ function createCard(cardData) {
   }
 
   // LIKE CARD
-  cardElement.querySelector('.card__like-button').addEventListener('click', (evt) => {
+  likeButton.addEventListener('click', (evt) => {
     const likeCounter = likesOnCard;
     evt.target.classList.toggle('card__like-button_is-active');
     cardData.onLike(dataContainer.dataset.cardId,likeCounter);
   });
+
+  if (cardData.isLiked){
+    likeButton.classList.toggle('card__like-button_is-active');
+  }
 
   return cardElement;
 }

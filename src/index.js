@@ -49,7 +49,7 @@ let popupImage, popupCaption;
 
 
 // FUNCTION ADDING CARD
-function addCard(nameValue, linkValue, placesList,cardLikes, cardCanBeDeleted, cardId) {
+function addCard(nameValue, linkValue, placesList,cardLikes, cardCanBeDeleted, cardId, isLikesByUs) {
   
   const card = createCard({
     name: nameValue,
@@ -58,7 +58,8 @@ function addCard(nameValue, linkValue, placesList,cardLikes, cardCanBeDeleted, c
     canBeDeleted:cardCanBeDeleted,
     id:cardId,
     onDelete:onDeleteCard,
-    onLike:onLikeCard
+    onLike:onLikeCard,
+    isLiked:isLikesByUs
   });
   placesList.prepend(card);
 }
@@ -193,7 +194,14 @@ async function loadPage()
         let json = await response.json();
         // console.log(json);
         json.forEach(element => {
-          addCard(element.name, element.link, placesList, element.likes, element.owner._id === _myId , element._id);
+          addCard(element.name,
+                element.link,
+                placesList,
+                element.likes,
+                element.owner._id === _myId ,
+                element._id,
+                element.likes.some(x=>x._id === _myId)
+            );
         });
         
       } else {
