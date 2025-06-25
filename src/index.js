@@ -15,7 +15,7 @@ import * as api from './components/api.js';
 // поиск DOM-элементов на странице 
 const placesList = document.querySelector(".places__list");
 const editForm = document.forms['edit-profile'];
-const editPopup = document.querySelector('.popup_type_edit');
+
 const avatarEditPopup = document.querySelector('.popup_avatar_edit');
 const nameInput = editForm.elements.name;
 const jobInput = editForm.elements.description;
@@ -25,11 +25,20 @@ const profileDescription = document.querySelector(".profile__description");
 const newCardForm = document.forms['new-place']; // getting form by name
 const placeName = newCardForm.elements['place-name']; // getting form elements
 const newCardImageLink = newCardForm.elements.link;
-const submitProfileButton = newCardForm.querySelector('.popup__button');
+
+
+// NEW CARD
 const addNewCardButton = document.querySelector('.profile__add-button');
-const editButton = document.querySelector('.profile__edit-button');
-const editAvatar = document.querySelector('.avatar__edit-button');
 const newCardPopup = document.querySelector('.popup_type_new-card');
+
+// EDIT PROFILE
+const editPopup = document.querySelector('.popup_type_edit');
+const editButton = document.querySelector('.profile__edit-button');
+const submitProfileButton = editPopup.querySelector('.popup__button');
+
+// EDIT AVATAR
+const editAvatar = document.querySelector('.avatar__edit-button');
+
 
 
 
@@ -101,9 +110,7 @@ editForm.addEventListener('submit', function(evt) {
 
 });
 
-editAvatar.addEventListener('click', ()=> {
-  openPopup(avatarEditPopup);
-})
+
 
 // Button EDDTING
 editButton.addEventListener('click', ()=>{
@@ -113,11 +120,15 @@ editButton.addEventListener('click', ()=>{
   jobInput.value = profileDescription.textContent;
 
   // ВАлидация кнопки добавления новой карточки
-  setSubmitButtonState(editForm.querySelector(".popup__button"), submitProfileButton);
+  setSubmitButtonState(true, submitProfileButton);
   openPopup(editPopup);
 });
 
 
+
+editAvatar.addEventListener('click', ()=> {
+  openPopup(avatarEditPopup);
+})
 
 newCardPopup
   .querySelector(".popup__close")
