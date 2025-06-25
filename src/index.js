@@ -23,14 +23,14 @@ const profileTitle = document.querySelector(".profile__title");
 const profileAvatar = document.querySelector(".profile__image")
 const profileDescription = document.querySelector(".profile__description");
 
-const newCardForm = document.forms['new-place']; // getting form by name
-const placeName = newCardForm.elements['place-name']; // getting form elements
-const newCardImageLink = newCardForm.elements.link;
-
-
 // NEW CARD
 const addNewCardButton = document.querySelector('.profile__add-button');
 const newCardPopup = document.querySelector('.popup_type_new-card');
+const newCardForm = document.forms['new-place']; // getting form by name
+const placeName = newCardForm.elements['place-name']; // getting form elements
+const newCardImageLink = newCardForm.elements.link;
+const newCardSubmitButton = newCardForm.querySelector('.popup__button');
+
 
 // EDIT PROFILE
 const editPopup = document.querySelector('.popup_type_edit');
@@ -43,7 +43,7 @@ const editDescriptionProfile = editPopup.querySelector('.popup__input_type_descr
 const avatarEditPopup = document.querySelector('.popup_avatar_edit');
 const editAvatar = document.querySelector('.avatar__edit-button');
 const editAvatarInput = avatarEditPopup.querySelector('.popup__input_type_url');;
-
+const editAvatarSubmit = avatarEditPopup.querySelector('.popup__button');
 
 
 
@@ -132,8 +132,16 @@ editButton.addEventListener('click', ()=>{
 
 
 editAvatar.addEventListener('click', ()=> {
+  editAvatarInput.value ="";
+  const isValid = editAvatarInput.checkValidity();
+  setSubmitButtonState(false, editAvatarSubmit);
   openPopup(avatarEditPopup);
 })
+
+avatarEditPopup.addEventListener("input",  () => {
+  const isValid =  editAvatarInput.checkValidity() ;
+  setSubmitButtonState(isValid, editAvatarSubmit);
+});
 
 // Отправка формы
 avatarEditPopup.addEventListener("submit", function (evt) {
@@ -158,6 +166,14 @@ newCardPopup
     closePopup(newCardPopup);
   });
 
+// функция-обработчик для открытия попапа (ред проф-ль)
+addNewCardButton.addEventListener("click", function () {
+  openPopup(newCardPopup);
+  clearValidation(newCardPopup, validationConfig);
+
+  const isValid = placeName.checkValidity() && newCardImageLink.checkValidity();
+  setSubmitButtonState(isValid, newCardSubmitButton);
+});
 
 // Отправка формы
 newCardForm.addEventListener("submit", function (evt) {
@@ -173,22 +189,15 @@ newCardForm.addEventListener("submit", function (evt) {
 
 // Валидация формы добавления новок карточки
 newCardForm.addEventListener("input", function () {
-  const isValid = placeName.value.length > 0 && newCardImageLink.value.length > 0;
-  setSubmitButtonState(isValid, submitProfileButton);
-
+  const isValid = placeName.checkValidity() && newCardImageLink.checkValidity();
+  setSubmitButtonState(isValid, newCardSubmitButton);
 });
 
 // Валидация формы редактирования профиля
 editPopup.addEventListener("input", function () {
-  const isValid = editNameProfile.value.length > 0 && editDescriptionProfile.value.length > 0;
+  const isValid = editNameProfile.checkValidity() && editDescriptionProfile.checkValidity();
   setSubmitButtonState(isValid, submitProfileButton);
 })
-
-// функция-обработчик для открытия попапа (ред проф-ль)
-addNewCardButton.addEventListener("click", function () {
-  openPopup(newCardPopup);
-  clearValidation(newCardPopup, validationConfig);
-});
 
 
 // Добавляем наши 6 начальных карт
