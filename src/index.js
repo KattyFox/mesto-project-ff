@@ -16,12 +16,13 @@ import * as api from './components/api.js';
 const placesList = document.querySelector(".places__list");
 const editForm = document.forms['edit-profile'];
 
-const avatarEditPopup = document.querySelector('.popup_avatar_edit');
+
 const nameInput = editForm.elements.name;
 const jobInput = editForm.elements.description;
 const profileTitle = document.querySelector(".profile__title");
 const profileAvatar = document.querySelector(".profile__image")
 const profileDescription = document.querySelector(".profile__description");
+
 const newCardForm = document.forms['new-place']; // getting form by name
 const placeName = newCardForm.elements['place-name']; // getting form elements
 const newCardImageLink = newCardForm.elements.link;
@@ -35,9 +36,13 @@ const newCardPopup = document.querySelector('.popup_type_new-card');
 const editPopup = document.querySelector('.popup_type_edit');
 const editButton = document.querySelector('.profile__edit-button');
 const submitProfileButton = editPopup.querySelector('.popup__button');
+const editNameProfile = editPopup.querySelector('.popup__input_type_name');
+const editDescriptionProfile = editPopup.querySelector('.popup__input_type_description');
 
 // EDIT AVATAR
+const avatarEditPopup = document.querySelector('.popup_avatar_edit');
 const editAvatar = document.querySelector('.avatar__edit-button');
+const editAvatarInput = avatarEditPopup.querySelector('.popup__input_type_url');;
 
 
 
@@ -112,7 +117,7 @@ editForm.addEventListener('submit', function(evt) {
 
 
 
-// Button EDDTING
+// редактировать профиль
 editButton.addEventListener('click', ()=>{
 
   // CURRENT data of progile
@@ -129,6 +134,23 @@ editButton.addEventListener('click', ()=>{
 editAvatar.addEventListener('click', ()=> {
   openPopup(avatarEditPopup);
 })
+
+// Отправка формы
+avatarEditPopup.addEventListener("submit", function (evt) {
+  evt.preventDefault();
+  const avatarUrl = editAvatarInput.value;
+  profileAvatar.style.backgroundImage=`url(${avatarUrl})`;
+
+  changeAvatar(avatarUrl)
+  // newCardForm.reset();
+  closePopup(avatarEditPopup);
+});
+
+async function changeAvatar(avatarUrl){
+  const response = await api.changeAvatar(avatarUrl);
+  const json = await response.json();
+  console.log(json);
+}
 
 newCardPopup
   .querySelector(".popup__close")
@@ -149,13 +171,18 @@ newCardForm.addEventListener("submit", function (evt) {
   setSubmitButtonState(false, submitProfileButton);
 });
 
-// Валидация формы профиля
+// Валидация формы добавления новок карточки
 newCardForm.addEventListener("input", function () {
   const isValid = placeName.value.length > 0 && newCardImageLink.value.length > 0;
   setSubmitButtonState(isValid, submitProfileButton);
 
 });
 
+// Валидация формы редактирования профиля
+editPopup.addEventListener("input", function () {
+  const isValid = editNameProfile.value.length > 0 && editDescriptionProfile.value.length > 0;
+  setSubmitButtonState(isValid, submitProfileButton);
+})
 
 // функция-обработчик для открытия попапа (ред проф-ль)
 addNewCardButton.addEventListener("click", function () {
