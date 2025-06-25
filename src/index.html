@@ -12,11 +12,16 @@
 cardTitle.textContent = cardData.name;
 <header class="header page__section">
     <img src="<%=require('./images/logo.svg')%>" alt="Логотип проекта масто" class="logo header__logo">
+    <!---- <button class="profile__edit-button" type="button"></button> -->
+    
   </header>
   <main class="content">
     <section class="profile page__section">
-      <div class="profile__image"></div>
+     
+      <div class="profile__image avatar__edit-button" type="button">
           <!-- <div class="profile__image" style="background-image: url(<%=require('./images/avatar.jpg')%>);"></div> -->
+      </div>
+
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <button class="profile__edit-button" type="button"></button>
@@ -34,6 +39,26 @@ cardTitle.textContent = cardData.name;
       © 2021 Mesto Russia
     </p>
   </footer>
+
+
+   <div class="popup popup_avatar_edit">
+    <div class="popup__avatar">
+      <button type="button" class="popup__close"></button>
+      <h3 class="popup__title">Обновить аватар</h3>
+
+      <form class="popup__form" name="new-avatar" novalidate>
+
+        <label class="popup__field"> 
+          <input type="url" name="link" id="link-input" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" required>
+          <span class="link-input-error link-error"></span> 
+        </label>
+        
+        <button type="submit" class="button popup__button">Сохранить</button>
+      </form>
+    </div>
+  </div> 
+
+
   <div class="popup popup_type_edit">
     <div class="popup__content">
       <button type="button" class="popup__close"></button>

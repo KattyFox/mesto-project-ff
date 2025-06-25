@@ -16,6 +16,7 @@ import * as api from './components/api.js';
 const placesList = document.querySelector(".places__list");
 const editForm = document.forms['edit-profile'];
 const editPopup = document.querySelector('.popup_type_edit');
+const avatarEditPopup = document.querySelector('.popup_avatar_edit');
 const nameInput = editForm.elements.name;
 const jobInput = editForm.elements.description;
 const profileTitle = document.querySelector(".profile__title");
@@ -27,7 +28,12 @@ const newCardImageLink = newCardForm.elements.link;
 const submitProfileButton = newCardForm.querySelector('.popup__button');
 const addNewCardButton = document.querySelector('.profile__add-button');
 const editButton = document.querySelector('.profile__edit-button');
+const editAvatar = document.querySelector('.avatar__edit-button');
 const newCardPopup = document.querySelector('.popup_type_new-card');
+
+
+
+
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -95,6 +101,9 @@ editForm.addEventListener('submit', function(evt) {
 
 });
 
+editAvatar.addEventListener('click', ()=> {
+  openPopup(avatarEditPopup);
+})
 
 // Button EDDTING
 editButton.addEventListener('click', ()=>{
@@ -107,6 +116,7 @@ editButton.addEventListener('click', ()=>{
   setSubmitButtonState(editForm.querySelector(".popup__button"), submitProfileButton);
   openPopup(editPopup);
 });
+
 
 
 newCardPopup

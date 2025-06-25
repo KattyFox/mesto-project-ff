@@ -9,6 +9,28 @@
   padding: 34px 36px;
 }
 
+.popup__avatar {
+  max-width: 430px;
+  width: 100%;
+  min-height: 272px;
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+  box-sizing: border-box;
+  padding: 34px 36px;
+}
+
+.popup__deletable {
+  max-width: 430px;
+  width: 100%;
+  min-height: 181px;
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+  box-sizing: border-box;
+  padding: 34px 36px;
+}
+
 @media screen and (max-width: 568px) {
   .popup__content {
     width: 100%;
