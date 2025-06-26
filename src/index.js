@@ -19,7 +19,7 @@ const editForm = document.forms['edit-profile'];
 const deletePopup = document.querySelector('.popup__deletable_edit');
 const deleteButtonSure = deletePopup.querySelector('.popup__button');
 
-const nameInput = editForm.elements.name;
+const nameInput = editForm.elements["my-name"];
 const jobInput = editForm.elements.description;
 const profileTitle = document.querySelector(".profile__title");
 const profileAvatar = document.querySelector(".profile__image")
