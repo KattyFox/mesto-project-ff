@@ -16,6 +16,8 @@ import * as api from './components/api.js';
 const placesList = document.querySelector(".places__list");
 const editForm = document.forms['edit-profile'];
 
+const deletePopup = document.querySelector('.popup__deletable_edit');
+const deleteButtonSure = deletePopup.querySelector('.popup__button');
 
 const nameInput = editForm.elements.name;
 const jobInput = editForm.elements.description;
@@ -85,8 +87,13 @@ function addCard(nameValue, linkValue, placesList,cardLikes, cardCanBeDeleted, c
   placesList.prepend(card);
 }
 
-function onDeleteCard( cardId ){
-  api.deleteCard(cardId);
+function onDeleteCard( cardId, cardElementToRemove ){
+    openPopup(deletePopup);
+    deleteButtonSure.addEventListener('click', ()=> {
+      cardElementToRemove.remove();
+      closePopup(deletePopup);
+      api.deleteCard(cardId);
+    })
 }
 
 async function onLikeCard(cardId, likesOnCard){

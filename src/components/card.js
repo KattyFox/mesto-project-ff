@@ -22,8 +22,7 @@ function createCard(cardData) {
   if(cardData.canBeDeleted){
       // DELETE CARD
       deleteButton.addEventListener('click', (evt) => {
-      evt.target.closest('.card').remove();
-      cardData.onDelete(dataContainer.dataset.cardId);
+      cardData.onDelete(dataContainer.dataset.cardId,evt.target.closest('.card'));
     });
   } else {
     deleteButton.style.visibility = 'hidden';
