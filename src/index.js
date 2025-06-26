@@ -14,16 +14,19 @@ import * as api from './components/api.js';
 (function () {
 // поиск DOM-элементов на странице 
 const placesList = document.querySelector(".places__list");
-const editForm = document.forms['edit-profile'];
+
 
 const deletePopup = document.querySelector('.popup__deletable_edit');
 const deleteButtonSure = deletePopup.querySelector('.popup__button');
 
+// Обновление профиля
+const editForm = document.forms['edit-profile'];
 const nameInput = editForm.elements["my-name"];
 const jobInput = editForm.elements.description;
 const profileTitle = document.querySelector(".profile__title");
 const profileAvatar = document.querySelector(".profile__image")
 const profileDescription = document.querySelector(".profile__description");
+const profileSubmitButton = editForm.querySelector(".popup__button")
 
 // NEW CARD
 const addNewCardButton = document.querySelector('.profile__add-button');
@@ -116,10 +119,14 @@ editForm.addEventListener('submit', function(evt) {
   profileTitle.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
 
-  api.updProfileData(nameInput.value, jobInput.value);
-  
-  closePopup(editPopup);
+  setSubmitButtonState(false, profileSubmitButton);
+  setSubmitButtonText(true, profileSubmitButton);
 
+   api.updProfileData(nameInput.value, jobInput.value)
+   .finally(()=>{
+    setSubmitButtonText(false, profileSubmitButton);
+    closePopup(editPopup);
+  } );
 });
 
 
@@ -156,16 +163,16 @@ avatarEditPopup.addEventListener("submit", function (evt) {
   const avatarUrl = editAvatarInput.value;
   profileAvatar.style.backgroundImage=`url(${avatarUrl})`;
 
-  changeAvatar(avatarUrl)
-  // newCardForm.reset();
-  closePopup(avatarEditPopup);
+  setSubmitButtonState(false, editAvatarSubmit);
+  setSubmitButtonText(true, editAvatarSubmit);
+
+   api.changeAvatar(avatarUrl)
+   .finally(()=>{
+    setSubmitButtonText(false, editAvatarSubmit);
+    closePopup(avatarEditPopup);
+  } );
 });
 
-async function changeAvatar(avatarUrl){
-  const response = await api.changeAvatar(avatarUrl);
-  const json = await response.json();
-  console.log(json);
-}
 
 newCardPopup
   .querySelector(".popup__close")
@@ -296,21 +303,5 @@ async function loadPage()
 
 
 loadPage();
-
-async function checkRequest(){
-  const response = await api.uploadCard("TestCard", "https://thecity.m24.ru/b/d/SYketSivfIE8LvbObLLBFlFNGhtudTX-kYVfOS8Xp1Gj5pqKzWTJSFS-PsArI08gRZaK1yZktQXWesHOaOz7FWcJ5xZMng=wkBah0vVjBD0lbWqAvz9aA.jpg");
-
-    if (response.ok) { // если HTTP-статус в диапазоне 200-299
-    // получаем тело ответа (см. про этот метод ниже)
-    let json = await response.json();
-    console.log(json);
-    
-  } else {
-    alert("Ошибка HTTP: " + response.status);
-  }
-}
-//checkRequest();
-
-
 
  })(); 
