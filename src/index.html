@@ -100,7 +100,7 @@ cardTitle.textContent = cardData.name;
         </label>
         
         <label class="popup__field"> <!-- обертка -->
-            <input type="text" name="description" id="description-input" pattern="^[a-zA-Z]+$" class="popup__input popup__input_type_description" placeholder="Занятие" required  data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" minlength="2" maxlength="200">
+            <input type="text" name="description" id="description-input" pattern="[A-Za-zА-Яа-яЁё\- ]+" class="popup__input popup__input_type_description" placeholder="Занятие" required  data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" minlength="2" maxlength="200">
             <span class="popup__input-error description-input-error place-name-error"></span>  <!-- добавлено -->
         </label>
         
