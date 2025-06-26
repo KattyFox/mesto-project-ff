@@ -35,6 +35,7 @@ async function updProfileData(newName, newAbout) {
 }
 
 async function uploadCard(imageName, imageLink) {
+  
   return fetch(baseUrl + cards, {
     method: "POST",
     headers: {

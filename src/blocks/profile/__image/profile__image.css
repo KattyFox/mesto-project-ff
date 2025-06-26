@@ -26,7 +26,6 @@
   background-size: 25px 25px;
   /*border: 1px solid #fff;*/
   opacity: 0; /* Иконка скрыта по умолчанию */
-  transition: opacity 0.3s ease;
 }
 
 .profile__image:hover::after {

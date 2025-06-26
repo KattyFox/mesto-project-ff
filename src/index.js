@@ -4,7 +4,7 @@ import './components/modal.js';
 import './components/validation.js';
 
 import {createCard} from "./components/card.js"
-import { setSubmitButtonState,  closePopup, openPopup } from "./components/modal.js";
+import { setSubmitButtonState, setSubmitButtonText, closePopup, openPopup } from "./components/modal.js";
 import { initialCards } from "./scripts/cards.js";
 
 import { enableValidation, clearValidation } from "./components/validation.js";
@@ -166,7 +166,7 @@ newCardPopup
     closePopup(newCardPopup);
   });
 
-// функция-обработчик для открытия попапа (ред проф-ль)
+// функция-обработчик для открытия попапа 
 addNewCardButton.addEventListener("click", function () {
   openPopup(newCardPopup);
   clearValidation(newCardPopup, validationConfig);
@@ -181,10 +181,16 @@ newCardForm.addEventListener("submit", function (evt) {
   const name = placeName.value;
   const link = newCardImageLink.value;
   //addCard(name, link, placesList);
-  api.uploadCard(name,link);
-  newCardForm.reset();
-  closePopup(newCardPopup);
-  setSubmitButtonState(false, submitProfileButton);
+
+  setSubmitButtonText(true, newCardSubmitButton)
+
+  api.uploadCard(name,link)
+  .finally(()=>{
+    setSubmitButtonText(false, newCardSubmitButton);
+    newCardForm.reset();
+    closePopup(newCardPopup);
+    setSubmitButtonState(false, newCardSubmitButton);
+  } );
 });
 
 // Валидация формы добавления новок карточки

@@ -66,12 +66,12 @@ cardTitle.textContent = cardData.name;
       <form class="popup__form" name="edit-profile" novalidate>
         
         <label class="popup__field"> <!-- обертка -->
-          <input type="text" name="name" id="name-input" class="popup__input popup__input_type_name" placeholder="Имя" required minlength="2" maxlength="40"> <!-- добавлен ID -->
+          <input type="text" name="name" id="name-input" class="popup__input popup__input_type_name" placeholder="Имя" pattern="^[a-zA-Z]+$" required minlength="2" maxlength="40"> <!-- добавлен ID -->
           <span class="popup__input-error name-input-error"></span>  <!-- добавлено -->
         </label>
         
         <label class="popup__field"> <!-- обертка -->
-            <input type="text" name="description" id="description-input" class="popup__input popup__input_type_description" placeholder="Занятие" required minlength="2" maxlength="200">
+            <input type="text" name="description" id="description-input" pattern="^[a-zA-Z]+$" class="popup__input popup__input_type_description" placeholder="Занятие" required minlength="2" maxlength="200">
             <span class="popup__input-error description-input-error"></span>  <!-- добавлено -->
         </label>
         

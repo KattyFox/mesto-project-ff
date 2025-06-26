@@ -38,5 +38,14 @@ function setSubmitButtonState(isFormValid, submitButton) {
   }
 }
 
+// VALID BUTTON
+function setSubmitButtonText(isLoading, submitButton) {
+  if (isLoading) {
+    submitButton.innerHTML = 'Сохранение ...';
+  } else {
+     submitButton.innerHTML = 'Сохранить';
+  }
+}
 
-export { setSubmitButtonState,  closePopup, openPopup };
+
+export { setSubmitButtonState, setSubmitButtonText, closePopup, openPopup };
