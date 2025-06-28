@@ -15,7 +15,7 @@ const hideInputError = (formElement, inputElement,settings) => {
 
 const checkInputValidity = (formElement, inputElement, settings) => {
   if (inputElement.validity.patternMismatch) {
-    let message = inputElement.getAttribute('data-error-message');
+    const message = inputElement.getAttribute('data-error-message');
     if(message !== undefined)
       inputElement.setCustomValidity(message);
   } else {
