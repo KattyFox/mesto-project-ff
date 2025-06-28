@@ -101,7 +101,8 @@ import * as api from "./components/api.js";
         id: cardId,
         isLiked: isLikesByUs,
       },
-      { onDelete: onDeleteCard, onLike: onLikeCard, onUnLike: onUnLikeCard }
+      { onDelete: onDeleteCard, onLike: onLikeCard, onUnLike: onUnLikeCard,
+        onClick:onClickCard }
     );
     placesList.prepend(card);
   }
@@ -137,6 +138,16 @@ import * as api from "./components/api.js";
       return;
     }
   }
+  
+   function onClickCard(cardData) {
+      // Заполняем попап данными
+      popupImage.src = cardData.link;
+      popupImage.alt = cardData.name;
+      popupCaption.textContent = cardData.name;
+
+      openPopup(imagePopup);
+  }
+
 
   // Обработчик submit
   editForm.addEventListener("submit", async function (evt) {
@@ -240,28 +251,6 @@ import * as api from "./components/api.js";
       newCardForm.reset();
       closePopup(newCardPopup);
       setSubmitButtonState(false, newCardSubmitButton);
-    }
-  });
-
-
-  // Обработчик на весь список карточек /"делегирование события"
-  placesList.addEventListener("click", (evt) => {
-    // Проверка клика на картинке
-    if (evt.target.classList.contains("card__image")) {
-      const card = evt.target.closest(".card");
-      const cardTitle = card.querySelector(".card__title");
-
-      const cardData = {
-        link: evt.target.src,
-        name: evt.target.alt || cardTitle.textContent,
-      };
-
-      // Заполняем попап данными
-      popupImage.src = cardData.link;
-      popupImage.alt = cardData.name;
-      popupCaption.textContent = cardData.name;
-
-      openPopup(imagePopup);
     }
   });
 
