@@ -21,7 +21,7 @@ async function getCards() {
 }
 
 async function updProfileData(newName, newAbout) {
- return fetch(baseUrl + meUrl, {
+  return fetch(baseUrl + meUrl, {
     method: "PATCH",
     headers: {
       authorization: "ca9c73cd-774d-4dee-9109-08215140258b",
@@ -35,7 +35,6 @@ async function updProfileData(newName, newAbout) {
 }
 
 async function uploadCard(imageName, imageLink) {
-  
   return fetch(baseUrl + cards, {
     method: "POST",
     headers: {
@@ -50,12 +49,17 @@ async function uploadCard(imageName, imageLink) {
 }
 
 async function deleteCard(cardId) {
-  return fetch(baseUrl + cards + "/" + cardId, {
+  fetch(baseUrl + cards + "/" + cardId, {
     method: "DELETE",
     headers: {
       authorization: "ca9c73cd-774d-4dee-9109-08215140258b",
       "Content-Type": "application/json",
     },
+  }).then((res) => {
+    if (res.ok) {
+      return res.json;
+    }
+      throw new Error(`Response status: ${response.status}`);
   });
 }
 
@@ -90,8 +94,6 @@ async function changeAvatar(avatarLink) {
       avatar: avatarLink,
     }),
   });
-
-
 }
 
 export {

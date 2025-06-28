@@ -93,11 +93,17 @@ function addCard(nameValue, linkValue, placesList,cardLikes, cardCanBeDeleted, c
 }
 
 function onDeleteCard( cardId, cardElementToRemove ){
-    openPopup(deletePopup);
-    deleteButtonSure.addEventListener('click', ()=> {
-      cardElementToRemove.remove();
-      closePopup(deletePopup);
-      api.deleteCard(cardId);
+  openPopup(deletePopup);  
+  deleteButtonSure.addEventListener('click', async ()=> {
+      try {
+        await api.deleteCard(cardId);
+        cardElementToRemove.remove();
+      } catch {
+        return;
+      }
+      finally{
+        closePopup(deletePopup);
+      }
     })
 }
 
