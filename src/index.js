@@ -12,7 +12,7 @@ import {
 } from "./components/modal.js";
 import { initialCards } from "./scripts/cards.js";
 
-import { enableValidation, clearValidation } from "./components/validation.js";
+import { enableValidation, clearValidation, enableExtraValidation } from "./components/validation.js";
 
 import * as api from "./components/api.js";
 
@@ -68,6 +68,12 @@ import * as api from "./components/api.js";
     errorClass: "popup__error_visible",
   };
 
+  const validationConfigExtra = {
+    avatarEditPopup, editAvatarInput,setSubmitButtonState,editAvatarSubmit,
+    newCardForm,placeName,newCardImageLink,newCardSubmitButton,
+    editPopup,editNameProfile,editDescriptionProfile,submitProfileButton
+  }
+
   // Попапы и их элементы + проверка
   const imagePopup = document.querySelector(".popup_type_image");
   let popupImage, popupCaption;
@@ -86,7 +92,7 @@ import * as api from "./components/api.js";
     cardId,
     isLikesByUs
   ) {
-    const card = addCard(
+    const card = createCard(
       {
         name: nameValue,
         link: linkValue,
@@ -170,10 +176,7 @@ import * as api from "./components/api.js";
     openPopup(avatarEditPopup);
   });
 
-  avatarEditPopup.addEventListener("input", () => {
-    const isValid = editAvatarInput.checkValidity();
-    setSubmitButtonState(isValid, editAvatarSubmit);
-  });
+
 
   // Отправка формы
   avatarEditPopup.addEventListener("submit", async function (evt) {
@@ -240,25 +243,6 @@ import * as api from "./components/api.js";
     }
   });
 
-  // Валидация формы добавления новок карточки
-  newCardForm.addEventListener("input", function () {
-    const isValid =
-      placeName.checkValidity() && newCardImageLink.checkValidity();
-    setSubmitButtonState(isValid, newCardSubmitButton);
-  });
-
-  // Валидация формы редактирования профиля
-  editPopup.addEventListener("input", function () {
-    const isValid =
-      editNameProfile.checkValidity() && editDescriptionProfile.checkValidity();
-    setSubmitButtonState(isValid, submitProfileButton);
-  });
-
-  // Добавляем наши 6 начальных карт
-  //initialCards.forEach((cardData) => {
-  //  const cardElement = createCard(cardData);
-  //  placesList.append(cardElement);
-  //});
 
   // Обработчик на весь список карточек /"делегирование события"
   placesList.addEventListener("click", (evt) => {
@@ -301,6 +285,7 @@ import * as api from "./components/api.js";
     async function getCards() {
       try{
         const json = await api.getCards();
+        console.log(json);
         // let json = await response.json();
         json.forEach((element) => {
         addCard(
@@ -312,15 +297,15 @@ import * as api from "./components/api.js";
         element._id,
         element.likes.some((x) => x._id === _myId)
         );});
-
-      } catch{
-        alert("Ошибка HTTP:" + response.status);
+      } catch (error) {
+        console.error(error);
       }
       finally{
       }
     }
 
     enableValidation(validationConfig);
+    enableExtraValidation(validationConfigExtra);
     await updateMe();
     await getCards();
   }

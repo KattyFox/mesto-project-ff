@@ -75,6 +75,32 @@ const clearValidation = (formElement, validationConfig) => {
   
 };
 
-export { enableValidation, clearValidation };
+const enableExtraValidation =  (settings) => {
+  console.log('abc');
+
+  const s = settings;
+  
+  s.avatarEditPopup.addEventListener("input", () => {
+    const isValid = s.editAvatarInput.checkValidity();
+    s.setSubmitButtonState(isValid, s.editAvatarSubmit);
+  });
+
+  // Валидация формы добавления новок карточки
+  s.newCardForm.addEventListener("input", function () {
+    const isValid =
+      s.placeName.checkValidity() && s.newCardImageLink.checkValidity();
+    s.setSubmitButtonState(isValid, s.newCardSubmitButton);
+  });
+
+  // Валидация формы редактирования профиля
+  s.editPopup.addEventListener("input", function () {
+    const isValid =
+      s.editNameProfile.checkValidity() && s.editDescriptionProfile.checkValidity();
+    s.setSubmitButtonState(isValid, s.submitProfileButton);
+  });
+
+}
+
+export { enableValidation, clearValidation,enableExtraValidation };
 
 
