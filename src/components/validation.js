@@ -65,24 +65,23 @@ const clearValidation = (formElement, validationConfig) => {
 };
 
 const enableExtraValidation =  (validationConfig,settings) => {
-  const s = settings;
-  s.avatarEditPopup.addEventListener("input", () => {
-    const isValid = s.editAvatarInput.checkValidity();
-    setSubmitButtonState(isValid, s.editAvatarSubmit,validationConfig);
+  settings.avatarEditPopup.addEventListener("input", () => {
+    const isValid = settings.editAvatarInput.checkValidity();
+    setSubmitButtonState(isValid, settings.editAvatarSubmit,validationConfig);
   });
 
   // Валидация формы добавления новок карточки
-  s.newCardForm.addEventListener("input", function () {
+  settings.newCardForm.addEventListener("input", function () {
     const isValid =
-      s.placeName.checkValidity() && s.newCardImageLink.checkValidity();
-    setSubmitButtonState(isValid, s.newCardSubmitButton,validationConfig);
+      settings.placeName.checkValidity() && settings.newCardImageLink.checkValidity();
+    setSubmitButtonState(isValid, settings.newCardSubmitButton,validationConfig);
   });
 
   // Валидация формы редактирования профиля
-  s.editPopup.addEventListener("input", function () {
+  settings.editPopup.addEventListener("input", function () {
     const isValid =
-      s.editNameProfile.checkValidity() && s.editDescriptionProfile.checkValidity();
-    setSubmitButtonState(isValid, s.submitProfileButton,validationConfig);
+      settings.editNameProfile.checkValidity() && settings.editDescriptionProfile.checkValidity();
+    setSubmitButtonState(isValid, settings.submitProfileButton,validationConfig);
   });
 }
 
