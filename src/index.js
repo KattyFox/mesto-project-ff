@@ -5,14 +5,12 @@ import "./components/validation.js";
 
 import { createCard } from "./components/card.js";
 import {
-  setSubmitButtonState,
-  setSubmitButtonText,
   closePopup,
   openPopup,
 } from "./components/modal.js";
 import { initialCards } from "./scripts/cards.js";
 
-import { enableValidation, clearValidation, enableExtraValidation } from "./components/validation.js";
+import { enableValidation, clearValidation, enableExtraValidation ,setSubmitButtonState,setSubmitButtonText  } from "./components/validation.js";
 
 import * as api from "./components/api.js";
 
@@ -69,7 +67,7 @@ import * as api from "./components/api.js";
   };
 
   const validationConfigExtra = {
-    avatarEditPopup, editAvatarInput,setSubmitButtonState,editAvatarSubmit,
+    avatarEditPopup, editAvatarInput,editAvatarSubmit,
     newCardForm,placeName,newCardImageLink,newCardSubmitButton,
     editPopup,editNameProfile,editDescriptionProfile,submitProfileButton
   }
@@ -160,7 +158,7 @@ import * as api from "./components/api.js";
     }catch {
     }
     finally {
-      setSubmitButtonState(false, profileSubmitButton);
+      setSubmitButtonState(false, profileSubmitButton,validationConfig);
   
       setSubmitButtonText(false, profileSubmitButton);
       closePopup(editPopup);
@@ -183,7 +181,7 @@ import * as api from "./components/api.js";
   editAvatar.addEventListener("click", () => {
     editAvatarInput.value = "";
     const isValid = editAvatarInput.checkValidity();
-    setSubmitButtonState(false, editAvatarSubmit);
+    setSubmitButtonState(false, editAvatarSubmit,validationConfig);
     openPopup(avatarEditPopup);
   });
 
@@ -195,7 +193,7 @@ import * as api from "./components/api.js";
     const avatarUrl = editAvatarInput.value;
     profileAvatar.style.backgroundImage = `url(${avatarUrl})`;
 
-    setSubmitButtonState(false, editAvatarSubmit);
+    setSubmitButtonState(false, editAvatarSubmit,validationConfig);
     setSubmitButtonText(true, editAvatarSubmit);
 
     try {
@@ -221,7 +219,7 @@ import * as api from "./components/api.js";
 
     const isValid =
       placeName.checkValidity() && newCardImageLink.checkValidity();
-    setSubmitButtonState(isValid, newCardSubmitButton);
+    setSubmitButtonState(isValid, newCardSubmitButton,validationConfig);
   });
 
   // Отправка формы
@@ -239,9 +237,10 @@ import * as api from "./components/api.js";
         json.link,
         placesList,
         json.likes,
-        json.owner._id === _myId,
+        _myId,
         json._id,
-        json.likes.some((x) => x._id === _myId)
+        json.likes.some((x) => x._id === _myId),
+        json.owner._id
         );
     } 
     catch {
@@ -250,7 +249,7 @@ import * as api from "./components/api.js";
     finally {
       newCardForm.reset();
       closePopup(newCardPopup);
-      setSubmitButtonState(false, newCardSubmitButton);
+      setSubmitButtonState(false, newCardSubmitButton,validationConfig);
     }
   });
 
@@ -291,7 +290,7 @@ import * as api from "./components/api.js";
     }
 
     enableValidation(validationConfig);
-    enableExtraValidation(validationConfigExtra);
+    enableExtraValidation(validationConfig,validationConfigExtra);
     await updateMe();
     await getCards();
   }

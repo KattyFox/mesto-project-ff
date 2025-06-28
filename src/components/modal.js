@@ -27,25 +27,5 @@ function closePopup(popup) {
 
 
 
-// VALID BUTTON
-function setSubmitButtonState(isFormValid, submitButton) {
-  if (isFormValid) {
-    submitButton.removeAttribute("disabled");
-    submitButton.classList.remove("popup__button_disabled");
-  } else {
-    submitButton.setAttribute("disabled", true);
-    submitButton.classList.add("popup__button_disabled");
-  }
-}
 
-// VALID BUTTON
-function setSubmitButtonText(isLoading, submitButton) {
-  if (isLoading) {
-    submitButton.textContent = 'Сохранение ...';
-  } else {
-     submitButton.textContent = 'Сохранить';
-  }
-}
-
-
-export { setSubmitButtonState, setSubmitButtonText, closePopup, openPopup };
+export { closePopup, openPopup };

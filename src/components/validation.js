@@ -71,36 +71,49 @@ const clearValidation = (formElement, validationConfig) => {
     inputElement.setCustomValidity(''); // Сбрасываем кастомные сообщения
     inputElement.value='';
   });
-
-  
 };
 
-const enableExtraValidation =  (settings) => {
-  console.log('abc');
-
+const enableExtraValidation =  (validationConfig,settings) => {
   const s = settings;
-  
   s.avatarEditPopup.addEventListener("input", () => {
     const isValid = s.editAvatarInput.checkValidity();
-    s.setSubmitButtonState(isValid, s.editAvatarSubmit);
+    setSubmitButtonState(isValid, s.editAvatarSubmit,validationConfig);
   });
 
   // Валидация формы добавления новок карточки
   s.newCardForm.addEventListener("input", function () {
     const isValid =
       s.placeName.checkValidity() && s.newCardImageLink.checkValidity();
-    s.setSubmitButtonState(isValid, s.newCardSubmitButton);
+    setSubmitButtonState(isValid, s.newCardSubmitButton,validationConfig);
   });
 
   // Валидация формы редактирования профиля
   s.editPopup.addEventListener("input", function () {
     const isValid =
       s.editNameProfile.checkValidity() && s.editDescriptionProfile.checkValidity();
-    s.setSubmitButtonState(isValid, s.submitProfileButton);
+    setSubmitButtonState(isValid, s.submitProfileButton,validationConfig);
   });
-
 }
 
-export { enableValidation, clearValidation,enableExtraValidation };
+// VALID BUTTON
+const setSubmitButtonState = (isFormValid, submitButton, validationConfig) =>{
+  if (isFormValid) {
+    submitButton.removeAttribute("disabled");
+    submitButton.classList.remove( validationConfig.inactiveButtonClass);
+  } else {
+    submitButton.setAttribute("disabled", true);
+    submitButton.classList.add(validationConfig.inactiveButtonClass);
+  }
+}
+
+// VALID BUTTON
+const setSubmitButtonText = (isLoading, submitButton) => {
+  if (isLoading) {
+    submitButton.textContent = 'Сохранение ...';
+  } else {
+     submitButton.textContent = 'Сохранить';
+  }
+}
+export { enableValidation, clearValidation,enableExtraValidation, setSubmitButtonState,setSubmitButtonText  };
 
 
