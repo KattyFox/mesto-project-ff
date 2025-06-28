@@ -54,8 +54,8 @@ const enableValidation = (settings) => {
 };
 
 const clearValidation = (formElement, validationConfig) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const buttonElement = formElement.querySelector('.popup__button');
+  const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
+  const buttonElement = formElement.querySelector(validationConfig.submitButtonSelector);
   
   inputList.forEach(inputElement => {
     hideInputError(formElement, inputElement,validationConfig);
