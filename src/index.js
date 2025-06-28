@@ -123,7 +123,7 @@ import * as api from "./components/api.js";
     });
   }
 
-  async function onLikeCard(cardId, likesOnCard, isLikeActive ) {
+  async function onLikeCard(cardId, likesOnCard, isLikeActive, target ) {
     try {
     let json ;
       if(isLikeActive){
@@ -131,8 +131,9 @@ import * as api from "./components/api.js";
       }else{
         json = await api.like(cardId);
       }
+      
       likesOnCard.textContent = json.likes.length;
-
+      target.classList.toggle("card__like-button_is-active");
     } catch {
       return;
     }

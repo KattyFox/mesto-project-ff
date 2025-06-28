@@ -35,8 +35,7 @@ function createCard(cardData, cardCallbacks) {
   // LIKE CARD
   likeButton.addEventListener("click", (evt) => {
     const likeActive = evt.target.classList.contains("card__like-button_is-active");
-    cardCallbacks.onLike(dataContainer.dataset.cardId,likesOnCard, likeActive);
-    evt.target.classList.toggle("card__like-button_is-active");
+    cardCallbacks.onLike(dataContainer.dataset.cardId,likesOnCard, likeActive, evt.target);
   });
 
   if (cardData.isLiked) {
