@@ -131,20 +131,23 @@ import * as api from "./components/api.js";
   }
 
   // Обработчик submit
-  editForm.addEventListener("submit", function (evt) {
+  editForm.addEventListener("submit", async function (evt) {
     evt.preventDefault();
-
-    // NEW Data
-    profileTitle.textContent = nameInput.value;
-    profileDescription.textContent = jobInput.value;
-
-    setSubmitButtonState(false, profileSubmitButton);
-    setSubmitButtonText(true, profileSubmitButton);
-
-    api.updProfileData(nameInput.value, jobInput.value).finally(() => {
+    try{
+      setSubmitButtonText(true, profileSubmitButton);
+      const json = await api.updProfileData(nameInput.value, jobInput.value);
+      profileTitle.textContent = json.name;
+      profileDescription.textContent = json.about;
+    }catch {
+    }
+    finally {
+      setSubmitButtonState(false, profileSubmitButton);
+  
       setSubmitButtonText(false, profileSubmitButton);
       closePopup(editPopup);
-    });
+    }
+
+
   });
 
   // редактировать профиль
