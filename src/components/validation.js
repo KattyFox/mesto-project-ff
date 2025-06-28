@@ -1,12 +1,3 @@
-const formPopupForm = document.querySelector('.popup__form');
-const popupInput = formPopupForm.querySelector('.popup__input');
-const popupError = formPopupForm.querySelector(`.${popupInput?.id}-error`);
-
-// включение валидации вызовом enableValidation
-// все настройки передаются при вызове
-
-
-
 const showInputError = (formElement, inputElement, errorMessage,settings) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(settings.inputErrorClass);
