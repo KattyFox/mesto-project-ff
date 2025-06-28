@@ -41,9 +41,9 @@ function setSubmitButtonState(isFormValid, submitButton) {
 // VALID BUTTON
 function setSubmitButtonText(isLoading, submitButton) {
   if (isLoading) {
-    submitButton.innerHTML = 'Сохранение ...';
+    submitButton.textContent = 'Сохранение ...';
   } else {
-     submitButton.innerHTML = 'Сохранить';
+     submitButton.textContent = 'Сохранить';
   }
 }
 

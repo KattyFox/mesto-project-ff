@@ -124,7 +124,7 @@ import * as api from "./components/api.js";
   async function onLikeCard(cardId, likesOnCard) {
     try {
       const json = await api.like(cardId);
-      likesOnCard.innerHTML = json.likes.length;
+      likesOnCard.textContent = json.likes.length;
     } catch {
       return;
     }
@@ -133,12 +133,12 @@ import * as api from "./components/api.js";
   async function onUnLikeCard(cardId, likesOnCard) {
     try {
       const json = await api.unLike(cardId);
-      likesOnCard.innerHTML = json.likes.length;
+      likesOnCard.textContent = json.likes.length;
     } catch {
       return;
     }
   }
-  
+
    function onClickCard(cardData) {
       // Заполняем попап данными
       popupImage.src = cardData.link;
@@ -261,8 +261,8 @@ import * as api from "./components/api.js";
       try{
         const json = await api.getMe();
 
-        profileTitle.innerHTML = json["name"];
-        profileDescription.innerHTML = json["about"];
+        profileTitle.textContent = json["name"];
+        profileDescription.textContent = json["about"];
         profileAvatar.style.backgroundImage = `url(${json[`avatar`]})`;
         _myId = json["_id"];
 
