@@ -13,7 +13,7 @@ async function getMe() {
     if (res.ok) {
       return res.json();
     }
-      throw new Error(`Response status: ${response.status}`);
+        throw new Error(`Response status: response!ok`);
   });
 }
 
@@ -26,7 +26,7 @@ async function getCards() {
     if (res.ok) {
       return  res.json();
     }
-      throw new Error(`Response status: ${response.status}`);
+       throw new Error(`Response status: response!ok`);
   });
 }
 
@@ -45,7 +45,7 @@ async function updProfileData(newName, newAbout) {
     if (res.ok) {
       return  res.json();
     }
-      throw new Error(`Response status: ${response.status}`);
+       throw new Error(`Response status: response!ok`);
   });
 }
 
@@ -64,7 +64,7 @@ async function uploadCard(imageName, imageLink) {
     if (res.ok) {
       return  res.json();
     }
-      throw new Error(`Response status: ${response.status}`);
+        throw new Error(`Response status: response!ok`);
   });
 }
 
@@ -79,7 +79,7 @@ async function deleteCard(cardId) {
     if (res.ok) {
       return res.json();
     }
-      throw new Error(`Response status: ${response.status}`);
+       throw new Error(`Response status: response!ok`);
   });
 }
 
@@ -94,7 +94,7 @@ async function like(cardId) {
     if (res.ok) {
       return  res.json();
     }
-      throw new Error(`Response status: ${response.status}`);
+       throw new Error(`Response status: response!ok`);
   });
 }
 
@@ -109,7 +109,7 @@ async function unLike(cardId) {
     if (res.ok) {
       return  res.json();
     }
-      throw new Error(`Response status: ${response.status}`);
+       throw new Error(`Response status: response!ok`);
   });
 }
 
@@ -127,7 +127,7 @@ async function changeAvatar(avatarLink) {
     if (res.ok) {
       return  res.json();
     }
-      throw new Error(`Response status: ${response.status}`);
+      throw new Error(`Response status: response!ok`);
   });
 }
 

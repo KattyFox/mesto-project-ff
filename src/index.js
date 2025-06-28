@@ -17,6 +17,8 @@ import { enableValidation, clearValidation } from "./components/validation.js";
 import * as api from "./components/api.js";
 
 (function () {
+  let _myId = "";
+
   // поиск DOM-элементов на странице
   const placesList = document.querySelector(".places__list");
 
@@ -84,7 +86,7 @@ import * as api from "./components/api.js";
     cardId,
     isLikesByUs
   ) {
-    const card = createCard(
+    const card = addCard(
       {
         name: nameValue,
         link: linkValue,
@@ -213,12 +215,20 @@ import * as api from "./components/api.js";
     evt.preventDefault();
     const name = placeName.value;
     const link = newCardImageLink.value;
-    //addCard(name, link, placesList);
-
+    
     setSubmitButtonText(true, newCardSubmitButton);
 
     try {
-    await api.uploadCard(name, link);
+        const json = await api.uploadCard(name, link);
+        addCard(
+        json.name,
+        json.link,
+        placesList,
+        json.likes,
+        json.owner._id === _myId,
+        json._id,
+        json.likes.some((x) => x._id === _myId)
+        );
     } 
     catch {
        return;
@@ -272,7 +282,7 @@ import * as api from "./components/api.js";
   });
 
   async function loadPage() {
-    let _myId = "";
+
 
     async function updateMe() {
       try{
