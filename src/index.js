@@ -157,7 +157,7 @@ import * as api from "./components/api.js";
     jobInput.value = profileDescription.textContent;
 
     // ВАлидация кнопки добавления новой карточки
-    setSubmitButtonState(true, submitProfileButton);
+    clearValidation(editPopup,validationConfig);
     openPopup(editPopup);
   });
 
