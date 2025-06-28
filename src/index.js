@@ -103,7 +103,7 @@ import * as api from "./components/api.js";
         isLiked: isLikesByUs,
         ownerID,
       },
-      { onDelete: onDeleteCard, onLike: onLikeCard, onUnLike: onUnLikeCard,
+      { onDelete: onDeleteCard, onLike: onLikeCard,
         onClick:onClickCard }
     );
     placesList.prepend(card);
@@ -123,19 +123,16 @@ import * as api from "./components/api.js";
     });
   }
 
-  async function onLikeCard(cardId, likesOnCard) {
+  async function onLikeCard(cardId, likesOnCard, isLikeActive ) {
     try {
-      const json = await api.like(cardId);
+    let json ;
+      if(isLikeActive){
+        json = await api.unLike(cardId);
+      }else{
+        json = await api.like(cardId);
+      }
       likesOnCard.textContent = json.likes.length;
-    } catch {
-      return;
-    }
-  }
 
-  async function onUnLikeCard(cardId, likesOnCard) {
-    try {
-      const json = await api.unLike(cardId);
-      likesOnCard.textContent = json.likes.length;
     } catch {
       return;
     }
