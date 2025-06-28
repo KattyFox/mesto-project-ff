@@ -82,11 +82,13 @@ function addCard(nameValue, linkValue, placesList,cardLikes, cardCanBeDeleted, c
     likes:cardLikes,
     canBeDeleted:cardCanBeDeleted,
     id:cardId,
-    onDelete:onDeleteCard,
-    onLike:onLikeCard,
     isLiked:isLikesByUs,
+  },
+  { onDelete:onDeleteCard,
+    onLike:onLikeCard,
     onUnLike:onUnLikeCard,
-  });
+  }
+  );
   placesList.prepend(card);
 }
 

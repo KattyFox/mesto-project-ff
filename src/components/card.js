@@ -1,6 +1,6 @@
 
 // FUNCTION CREATE CARD
-function createCard(cardData) {
+function createCard(cardData,cardCallbacks) {
   const cardTemplate = document.getElementById('card-template').content;
   const cardElement = cardTemplate.cloneNode(true);
 
@@ -22,7 +22,7 @@ function createCard(cardData) {
   if(cardData.canBeDeleted){
       // DELETE CARD
       deleteButton.addEventListener('click', (evt) => {
-      cardData.onDelete(dataContainer.dataset.cardId,evt.target.closest('.card'));
+      cardCallbacks.onDelete(dataContainer.dataset.cardId,evt.target.closest('.card'));
     });
   } else {
     deleteButton.style.visibility = 'hidden';
@@ -33,9 +33,9 @@ function createCard(cardData) {
     const likeCounter = likesOnCard;
 
     if(evt.target.classList.contains('card__like-button_is-active')){
-      cardData.onUnLike(dataContainer.dataset.cardId,likeCounter);
+      cardCallbacks.onUnLike(dataContainer.dataset.cardId,likeCounter);
     } else {
-      cardData.onLike(dataContainer.dataset.cardId,likeCounter);
+      cardCallbacks.onLike(dataContainer.dataset.cardId,likeCounter);
     }
 
     evt.target.classList.toggle('card__like-button_is-active');
