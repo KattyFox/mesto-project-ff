@@ -9,7 +9,7 @@ function createCard(cardData, cardCallbacks) {
 
   cardElement.querySelector(".card__title").textContent = cardData.name;
   const likesOnCard = cardElement.querySelector(".likes__on__card");
-  likesOnCard.innerHTML = cardData.likes.length;
+  likesOnCard.textContent = cardData.likes.length;
 
   const likeButton = cardElement.querySelector(".card__like-button");
 
@@ -18,11 +18,10 @@ function createCard(cardData, cardCallbacks) {
   if (dataContainer.dataset.cardId === undefined) {
     dataContainer.dataset.cardId = cardData.id;
   }
-
-
   const deleteButton = cardElement.querySelector(".card__delete-button");
-  if (cardData.canBeDeleted) {
-    // DELETE CARD
+  
+  const canBeDeleted = cardData.ownerID === cardData._myId;
+  if (canBeDeleted) {
     deleteButton.addEventListener("click", (evt) => {
       cardCallbacks.onDelete(
         dataContainer.dataset.cardId,
@@ -58,7 +57,7 @@ function createCard(cardData, cardCallbacks) {
       }
     )
   })
-  
+
   return cardElement;
 }
 

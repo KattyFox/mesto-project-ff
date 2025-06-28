@@ -88,18 +88,20 @@ import * as api from "./components/api.js";
     linkValue,
     placesList,
     cardLikes,
-    cardCanBeDeleted,
+    myID,
     cardId,
-    isLikesByUs
+    isLikesByUs,
+    ownerID,
   ) {
     const card = createCard(
       {
         name: nameValue,
         link: linkValue,
         likes: cardLikes,
-        canBeDeleted: cardCanBeDeleted,
+        _myId: myID,
         id: cardId,
         isLiked: isLikesByUs,
+        ownerID,
       },
       { onDelete: onDeleteCard, onLike: onLikeCard, onUnLike: onUnLikeCard,
         onClick:onClickCard }
@@ -255,8 +257,6 @@ import * as api from "./components/api.js";
   });
 
   async function loadPage() {
-
-
     async function updateMe() {
       try{
         const json = await api.getMe();
@@ -274,17 +274,16 @@ import * as api from "./components/api.js";
     async function getCards() {
       try{
         const json = await api.getCards();
-        console.log(json);
-        // let json = await response.json();
         json.forEach((element) => {
         addCard(
         element.name,
         element.link,
         placesList,
         element.likes,
-        element.owner._id === _myId,
+        _myId,
         element._id,
-        element.likes.some((x) => x._id === _myId)
+        element.likes.some((x) => x._id === _myId),
+        element.owner._id,
         );});
       } catch (error) {
         console.error(error);
