@@ -4,17 +4,19 @@ const meUrl = "/users/me";
 const cards = "/cards";
 const likes = "/likes";
 
+function handleResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  throw new Error(`Response status: ${res.status}`);
+}
+
 async function getMe() {
  return fetch(baseUrl + meUrl, {
     headers: {
       authorization: token,
     },
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-        throw new Error(`Response status: response!ok`);
-  });
+  }).then(handleResponse);
 }
 
 async function getCards() {
@@ -22,12 +24,7 @@ async function getCards() {
     headers: {
       authorization: token,
     },
-  }).then((res) => {
-    if (res.ok) {
-      return  res.json();
-    }
-       throw new Error(`Response status: response!ok`);
-  });
+    }).then(handleResponse);
 }
 
 async function updProfileData(newName, newAbout) {
@@ -41,12 +38,7 @@ async function updProfileData(newName, newAbout) {
       name: newName,
       about: newAbout,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return  res.json();
-    }
-       throw new Error(`Response status: response!ok`);
-  });
+   }).then(handleResponse);
 }
 
 async function uploadCard(imageName, imageLink) {
@@ -60,12 +52,7 @@ async function uploadCard(imageName, imageLink) {
       name: imageName,
       link: imageLink,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return  res.json();
-    }
-        throw new Error(`Response status: response!ok`);
-  });
+   }).then(handleResponse);
 }
 
 async function deleteCard(cardId) {
@@ -75,12 +62,7 @@ async function deleteCard(cardId) {
       authorization: token,
       "Content-Type": "application/json",
     },
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-       throw new Error(`Response status: response!ok`);
-  });
+   }).then(handleResponse);
 }
 
 async function like(cardId) {
@@ -90,12 +72,7 @@ async function like(cardId) {
       authorization: token,
       "Content-Type": "application/json",
     },
-  }).then((res) => {
-    if (res.ok) {
-      return  res.json();
-    }
-       throw new Error(`Response status: response!ok`);
-  });
+   }).then(handleResponse);
 }
 
 async function unLike(cardId) {
@@ -105,12 +82,7 @@ async function unLike(cardId) {
       authorization: token,
       "Content-Type": "application/json",
     },
-  }).then((res) => {
-    if (res.ok) {
-      return  res.json();
-    }
-       throw new Error(`Response status: response!ok`);
-  });
+    }).then(handleResponse);
 }
 
 async function changeAvatar(avatarLink) {
@@ -123,12 +95,7 @@ async function changeAvatar(avatarLink) {
     body: JSON.stringify({
       avatar: avatarLink,
     }),
-  }).then((res) => {
-    if (res.ok) {
-      return  res.json();
-    }
-      throw new Error(`Response status: response!ok`);
-  });
+   }).then(handleResponse);
 }
 
 export {
