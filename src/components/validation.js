@@ -12,7 +12,6 @@ const hideInputError = (formElement, inputElement,settings) => {
   errorElement.textContent = '';
 };
 
-
 const checkInputValidity = (formElement, inputElement, settings) => {
   if (inputElement.validity.patternMismatch) {
     const message = inputElement.getAttribute('data-error-message');
@@ -31,14 +30,14 @@ const checkInputValidity = (formElement, inputElement, settings) => {
 
 const setEventListeners = (formElement, settings) => {
   const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
-  const s = settings;
+  const button = formElement.querySelector(settings.submitButtonSelector);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement, s);
+      checkInputValidity(formElement, inputElement, settings);
+      setSubmitButtonState(formElement.checkValidity(), button, settings);
     });
   });
 };
-
 
 const enableValidation = (settings) => {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
@@ -47,7 +46,6 @@ const enableValidation = (settings) => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    
     setEventListeners(formElement,settings);
   });
 
@@ -64,27 +62,6 @@ const clearValidation = (formElement, validationConfig) => {
     inputElement.value='';
   });
 };
-
-const enableExtraValidation =  (validationConfig,settings) => {
-  settings.avatarEditPopup.addEventListener("input", () => {
-    const isValid = settings.editAvatarInput.checkValidity();
-    setSubmitButtonState(isValid, settings.editAvatarSubmit,validationConfig);
-  });
-
-  // Валидация формы добавления новок карточки
-  settings.newCardForm.addEventListener("input", function () {
-    const isValid =
-      settings.placeName.checkValidity() && settings.newCardImageLink.checkValidity();
-    setSubmitButtonState(isValid, settings.newCardSubmitButton,validationConfig);
-  });
-
-  // Валидация формы редактирования профиля
-  settings.editPopup.addEventListener("input", function () {
-    const isValid =
-      settings.editNameProfile.checkValidity() && settings.editDescriptionProfile.checkValidity();
-    setSubmitButtonState(isValid, settings.submitProfileButton,validationConfig);
-  });
-}
 
 // VALID BUTTON
 const setSubmitButtonState = (isFormValid, submitButton, validationConfig) =>{
@@ -105,6 +82,6 @@ const setSubmitButtonText = (isLoading, submitButton) => {
      submitButton.textContent = 'Сохранить';
   }
 }
-export { enableValidation, clearValidation,enableExtraValidation, setSubmitButtonState,setSubmitButtonText  };
+export { enableValidation, clearValidation, setSubmitButtonText  };
 
 

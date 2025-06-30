@@ -10,7 +10,7 @@ import {
 } from "./components/modal.js";
 import { initialCards } from "./scripts/cards.js";
 
-import { enableValidation, clearValidation, enableExtraValidation ,setSubmitButtonState,setSubmitButtonText  } from "./components/validation.js";
+import { enableValidation, clearValidation, setSubmitButtonText  } from "./components/validation.js";
 
 import * as api from "./components/api.js";
 
@@ -65,12 +65,6 @@ import * as api from "./components/api.js";
     inputErrorClass: "popup__input_type_error",
     errorClass: "popup__error_visible",
   };
-
-  const validationConfigExtra = {
-    avatarEditPopup, editAvatarInput,editAvatarSubmit,
-    newCardForm,placeName,newCardImageLink,newCardSubmitButton,
-    editPopup,editNameProfile,editDescriptionProfile,submitProfileButton
-  }
 
   // Попапы и их элементы + проверка
   const imagePopup = document.querySelector(".popup_type_image");
@@ -146,7 +140,6 @@ import * as api from "./components/api.js";
       openPopup(imagePopup);
   }
 
-
   // Обработчик submit
   editForm.addEventListener("submit", async function (evt) {
     evt.preventDefault();
@@ -158,8 +151,8 @@ import * as api from "./components/api.js";
     }catch {
     }
     finally {
-      setSubmitButtonState(false, profileSubmitButton,validationConfig);
-  
+    
+      
       setSubmitButtonText(false, profileSubmitButton);
       closePopup(editPopup);
     }
@@ -181,7 +174,7 @@ import * as api from "./components/api.js";
   editAvatar.addEventListener("click", () => {
     editAvatarInput.value = "";
     const isValid = editAvatarInput.checkValidity();
-    setSubmitButtonState(false, editAvatarSubmit,validationConfig);
+    
     openPopup(avatarEditPopup);
   });
 
@@ -193,7 +186,7 @@ import * as api from "./components/api.js";
     const avatarUrl = editAvatarInput.value;
     profileAvatar.style.backgroundImage = `url(${avatarUrl})`;
 
-    setSubmitButtonState(false, editAvatarSubmit,validationConfig);
+    
     setSubmitButtonText(true, editAvatarSubmit);
 
     try {
@@ -216,10 +209,6 @@ import * as api from "./components/api.js";
   addNewCardButton.addEventListener("click", function () {
     openPopup(newCardPopup);
     clearValidation(newCardPopup, validationConfig);
-
-    const isValid =
-      placeName.checkValidity() && newCardImageLink.checkValidity();
-    setSubmitButtonState(isValid, newCardSubmitButton,validationConfig);
   });
 
   // Отправка формы
@@ -249,7 +238,6 @@ import * as api from "./components/api.js";
     finally {
       newCardForm.reset();
       closePopup(newCardPopup);
-      setSubmitButtonState(false, newCardSubmitButton,validationConfig);
     }
   });
 
@@ -290,7 +278,6 @@ import * as api from "./components/api.js";
     }
 
     enableValidation(validationConfig);
-    enableExtraValidation(validationConfig,validationConfigExtra);
     await updateMe();
     await getCards();
   }
