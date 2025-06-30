@@ -32,15 +32,18 @@ function createCard(cardData, cardCallbacks) {
     deleteButton.style.visibility = "hidden";
   }
 
+  //внутри метода creatCard
+  if (cardData.isLiked) {
+    likeButton.classList.toggle("card__like-button_is-active");
+  }
+
+
   // LIKE CARD
   likeButton.addEventListener("click", (evt) => {
     const likeActive = evt.target.classList.contains("card__like-button_is-active");
     cardCallbacks.onLike(dataContainer.dataset.cardId,likesOnCard, likeActive, evt.target);
   });
 
-  if (cardData.isLiked) {
-    likeButton.classList.toggle("card__like-button_is-active");
-  }
 
   cardImage.addEventListener("click",()=>{
     cardCallbacks.onClick(
